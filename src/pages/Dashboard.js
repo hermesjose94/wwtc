@@ -7,6 +7,7 @@ import ActionEndPoint from '../components/ActionEndPoint';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import { Link } from 'react-router-dom'
 
 const { SearchBar } = Search;
 
@@ -84,6 +85,7 @@ const columns = [
                         dataField: 'endpoint',
                         text: 'Endpoint',
                         sort: true,
+                        formatter: linkFormatter,
                     }, 
                     {
                         dataField: 'url',
@@ -99,7 +101,7 @@ const columns = [
                         dataField: "actions", 
                         text: "Actions",
                         sort: false,
-                        formatter: rankFormatter,
+                        formatter: buttonFormatter,
                     }
                 ];
 const defaultSorted = [{
@@ -113,7 +115,13 @@ const rowEvents = {
     }
 };
 
-function rankFormatter(cell, row, rowIndex, formatExtraData) { 
+function linkFormatter(cell, row, rowIndex, formatExtraData) { 
+    return ( 
+        <Link to="/test" >{row.endpoint}</Link>
+    ); 
+}
+
+function buttonFormatter(cell, row, rowIndex, formatExtraData) { 
     console.log(row.id);
     const ruta = "/edit/"+row.id
     return ( 

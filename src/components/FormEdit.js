@@ -12,7 +12,9 @@ const FormEdit = ({id}) => (
             <Link to="/" className="btn btn-danger float-right">
                 DELETE
             </Link>    
-            <button type="submit" className="btn btn-primary float-right mr-1">EDIT</button>
+            <Link to="/create" className="btn btn-primary float-right mr-1">
+                EDIT
+            </Link>    
         </div>  
         <div className="col-12">
             <h5 className="float-left">Header Parameters</h5>
