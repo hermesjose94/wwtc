@@ -1,8 +1,8 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-import Dashboard from '../pages/Dashboard'
-import Create from '../pages/Create'
+import Dashboard from '../pages/DashboardContainer'
+import Create from '../pages/CreateContainer'
 import Edit from '../pages/Edit'
 import Test from '../pages/Test'
 import NotFound from '../pages/404'

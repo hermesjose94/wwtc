@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import DropZone from '../components/DropZone';
 import DropZone2 from '../components/DropZone2';
 
 import audio from './audio.mp3';
