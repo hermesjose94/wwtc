@@ -119,7 +119,7 @@ const FormTextToText = ({
                     </div>
                 </div>
                 <div className="col-12">
-                    <Link to="/" className="btn btn-danger float-left"><FontAwesomeIcon icon={faCopy} /> Copy</Link>
+                    <Link to="/" className="btn btn-light float-left"><FontAwesomeIcon icon={faCopy} /> Copy</Link>
                     {Config.prueba ? (
                         <button type="button" className="btn btn-dark" onClick={pruebas}>Prueba Json</button>
                     ) : (

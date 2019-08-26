@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles/Navigation.css'
-import logo from '../logo.svg';
+import logo from '../images/logo.svg';
 import { Link } from 'react-router-dom'
 
 const Navigation = () =>(
