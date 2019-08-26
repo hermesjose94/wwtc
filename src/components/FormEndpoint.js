@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Parameters from './Parameters'
 
 const FormEndpoint = ({
+    action,
     arrayHeader,
     arrayBody,
     arrayUrl,
@@ -17,6 +18,7 @@ const FormEndpoint = ({
     handleRemoveUrlElements,
     handleChangeUrl,
     handleChange,
+    handleChangeJson,
     handleSubmit,
     pruebas
 }) => {
@@ -84,99 +86,132 @@ const FormEndpoint = ({
                     </div>
                 </div>  
                 <div className="col-12">
-                    <h5 className="float-left">Header Parameters</h5>
+                    <hr></hr>
+                    {arrayHeader ? (
+                        <h5 className="float-left">Header Parameters</h5>
+                    ) : (
+                        <h5 className="float-left">Not Header Parameters</h5>
+                    )}
                 </div>  
             </div>  
-            { arrayHeader.map((element,i) => {
-                var nameHeader    = "nameHeader-"+i
-                var paramHeader   = "paramHeader-"+i
-                var typeHeader    = "typeHeader-"+i
-                var elementHeader = "header-element-"+i
-                return(
-                    <Parameters 
-                        key={elementHeader}
-                        id={elementHeader}
-                        pos={i}
-                        data={arrayHeader}
-                        name={nameHeader}
-                        parameters={paramHeader}
-                        type={typeHeader}
-                        onClickAdd={handleAddHeaderElements}
-                        onClickRemove={handleRemoveHeaderElements}
-                        onChange={handleChangeHeader}
-                    />
-                )
-            }) }  
+            { 
+                arrayHeader && arrayHeader.map((element,i) => {
+                    var nameHeader    = "nameHeader-"+i
+                    var paramHeader   = "paramHeader-"+i
+                    var typeHeader    = "typeHeader-"+i
+                    var elementHeader = "header-element-"+i
+                    return(
+                        <Parameters 
+                            key={elementHeader}
+                            id={elementHeader}
+                            pos={i}
+                            data={arrayHeader}
+                            name={nameHeader}
+                            parameters={paramHeader}
+                            type={typeHeader}
+                            onClickAdd={handleAddHeaderElements}
+                            onClickRemove={handleRemoveHeaderElements}
+                            onChange={handleChangeHeader}
+                        />
+                    )
+                }) 
+            }  
             <div className="row">
                 <div className="col-12">
                     <hr></hr>
-                </div>
-                <div className="col-12">
-                    <h5 className="float-left">Body Parameters</h5>
+                    {arrayBody ? (
+                        <h5 className="float-left">Body Parameters</h5>
+                    ) : (
+                        <h5 className="float-left">Not Body Parameters</h5>
+                    )}
                 </div> 
             </div>      
-            { arrayBody.map((elemnt,i) => {
-                var nameBody    = "nameBody-"+i
-                var paramBody   = "paramBody-"+i
-                var typeBody    = "typeHeader-"+i
-                var bodyElement = "body-element-"+i
-                return(
-                    <Parameters 
-                        key={bodyElement}
-                        id={bodyElement}
-                        pos={i}
-                        data={arrayBody}
-                        name={nameBody}
-                        parameters={paramBody}
-                        type={typeBody}
-                        onClickAdd={handleAddBodyElements}
-                        onClickRemove={handleRemoveBodyElements}
-                        onChange={handleChangeBody}
-                    />
-                )
-            }) }           
+            { 
+                arrayBody && arrayBody.map((elemnt,i) => {
+                    var nameBody    = "nameBody-"+i
+                    var paramBody   = "paramBody-"+i
+                    var typeBody    = "typeHeader-"+i
+                    var bodyElement = "body-element-"+i
+                    return(
+                        <Parameters 
+                            key={bodyElement}
+                            id={bodyElement}
+                            pos={i}
+                            data={arrayBody}
+                            name={nameBody}
+                            parameters={paramBody}
+                            type={typeBody}
+                            onClickAdd={handleAddBodyElements}
+                            onClickRemove={handleRemoveBodyElements}
+                            onChange={handleChangeBody}
+                        />
+                    )
+                }) 
+            }           
             <div className="row">
                 <div className="col-12">
                     <hr></hr>
-                </div>
-                <div className="col-12">
+                    {arrayUrl ? (
                     <h5 className="float-left">URL Parameters</h5>
+                    ) : (
+                        <h5 className="float-left">Not URL Parameters</h5>
+                    )}
                 </div> 
             </div>
-            { arrayUrl.map((element,i) => {
-                var nameUrl    = "nameUrl-"+i
-                var paramUrl   = "paramUrl-"+i
-                var typeUrl    = "typeUrl-"+i
-                var urlElement = "url-element-"+i
-                return(
-                    <Parameters 
-                        key={urlElement}
-                        id={urlElement}
-                        pos={i}
-                        data={arrayUrl}
-                        name={nameUrl}
-                        parameters={paramUrl}
-                        type={typeUrl}
-                        onClickAdd={handleAddUrlElements}
-                        onClickRemove={handleRemoveUrlElements}
-                        onChange={handleChangeUrl}
-                    />
-                )
-            }) }           
+            { 
+                arrayUrl && arrayUrl.map((element,i) => {
+                    var nameUrl    = "nameUrl-"+i
+                    var paramUrl   = "paramUrl-"+i
+                    var typeUrl    = "typeUrl-"+i
+                    var urlElement = "url-element-"+i
+                    return(
+                        <Parameters 
+                            key={urlElement}
+                            id={urlElement}
+                            pos={i}
+                            data={arrayUrl}
+                            name={nameUrl}
+                            parameters={paramUrl}
+                            type={typeUrl}
+                            onClickAdd={handleAddUrlElements}
+                            onClickRemove={handleRemoveUrlElements}
+                            onChange={handleChangeUrl}
+                        />
+                    )
+                }) 
+            }           
             <div className="row">
                 <div className="col-12">
                     <hr></hr>
-                </div>
+                    <h5 className="float-left">Description</h5>
+                </div> 
                 <div className="col-12">
+                    <div className="form-group">
+                        <textarea 
+                            placeholder="Description Endpoint"
+                            className="form-control"
+                            rows="5"
+                            name="description"
+                            onChange={handleChange}
+                            defaultValue={form.description}
+                        >
+                        </textarea>
+                    </div>
+                </div>  
+                <div className="col-12">
+                    <hr></hr>
                     <h5 className="float-left">Output</h5>
                 </div> 
                 <div className="col-12">
                     <div className="form-group">
                         <textarea 
-                            placeholder="Json"
+                            placeholder="Enter a valid JSON"
                             className="form-control"
                             rows="5"
-                            name="output">
+                            name="output"
+                            onChange={handleChangeJson}
+                            defaultValue={JSON.parse(form.output)}
+                        >
                         </textarea>
                     </div>
                 </div>  
@@ -185,8 +220,8 @@ const FormEndpoint = ({
                 </div>
                 <div className="col-12">
                     <Link to="/" className="btn btn-danger float-left">Cancel</Link>
-                    <button onClick={pruebas} type="button" className="btn btn-dark">Prueba</button>
-                    <button type="submit" className="btn btn-primary float-right">Add API/Endpoint</button>
+                    <button type="button" onClick={pruebas} className="btn btn-dark d-none">Prueba Json</button>
+                    <button type="submit" className="btn btn-primary float-right">{action} API/Endpoint</button>
                 </div> 
             </div> 
         </form>

@@ -7,7 +7,19 @@ import FormSpeechToText from '../components/FormSpeechToText';
 
 
 
-const Edit = ({ match }) => (
+const Edit = ({
+    languages,
+    endpoints,
+    json,
+    result,
+    selectEndpoint,
+    selectProvider,
+    fromLanguage,
+    toLanguage,
+    ChangeText,
+    handleSubmit,
+    pruebas
+}) => (
     <div className="App">
         <Navigation/>
         <Breadcrumb
@@ -16,13 +28,31 @@ const Edit = ({ match }) => (
         <div className="container mt-4">
             <div className="row">
                 <div className="col-4 mb-4 border border-right-0">
-                    <FormSpeechToText />
+                    <FormSpeechToText 
+                        languages={languages}    
+                        endpoints={endpoints}
+                    />
                 </div>
                 <div className="col-4 mb-4 border border-right-0">
-                    <FormTextToText />
+                    <FormTextToText 
+                        languages={languages}
+                        endpoints={endpoints}
+                        json={json}
+                        result={result}
+                        selectEndpoint={selectEndpoint}
+                        selectProvider={selectProvider}
+                        fromLanguage={fromLanguage}
+                        toLanguage={toLanguage}
+                        ChangeText={ChangeText}
+                        handleSubmit={handleSubmit}
+                        pruebas={pruebas}
+                    />
                 </div>
                 <div className="col-4 mb-4 border">
-                    <FormTextToSpeech />
+                    <FormTextToSpeech 
+                        languages={languages}
+                        endpoints={endpoints}
+                    />
                 </div>
             </div>
         </div>

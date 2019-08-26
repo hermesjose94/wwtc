@@ -1,7 +1,6 @@
-import React from 'react';
+import React,{ useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import url from '../config'
-import useFetch from '../hooks/useFetch'
 import ActionEndPoint from '../components/ActionEndPoint'
 import Dashboard from './Dashboard'
 import Loading from '../components/Loading'
@@ -9,33 +8,84 @@ import FatalError from './500'
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css'
 import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css'
 
-const DashboardContainer = () => {
-    const {data,loading,error} = useFetch(`${url}/apis`)
-                    
+const DashboardContainer = ({history}) => {
+    const [ data, setData ] = useState([])
+    const [ loading, setLoading ] = useState(true)
+    const [ error, setError ] = useState(null)
+
     const columns = [
-                        {
-                            dataField: 'name',
-                            text: 'Endpoint',
-                            sort: true,
-                            formatter: linkFormatter,
-                        }, 
-                        {
-                            dataField: 'url',
-                            text: 'URL',
-                            sort: true,
-                        }, 
-                        {
-                            dataField: 'translation_type',
-                            text: 'Type',
-                            sort: true,
-                        }, 
-                        {
-                            dataField: "actions", 
-                            text: "Actions",
-                            sort: false,
-                            formatter: buttonFormatter,
-                        }
-                    ]
+        {
+            dataField: 'name',
+            text: 'Endpoint',
+            sort: true,
+            formatter: linkFormatter,
+        }, 
+        {
+            dataField: 'url',
+            text: 'URL',
+            sort: true,
+        }, 
+        {
+            dataField: 'translation_type',
+            text: 'Type',
+            sort: true,
+        }, 
+        {
+            dataField: "actions", 
+            text: "Actions",
+            sort: false,
+            formatter: buttonFormatter,
+        }
+    ]
+
+    useEffect(() =>{
+        const fetchResource = async () => {
+            try {
+                let res = await fetch(`${url}/apis`)
+                let data = await res.json()
+                
+                setData(data.apis)
+                setLoading(false)
+                   
+            } catch (error) {
+                setLoading(false)
+                setError(error)
+            }
+        }
+        fetchResource()
+    },[])
+
+
+    const handleDeleteApi = async id =>{
+        if (window.confirm('¿ Seguro que desea borrar el Endpoint ?')){
+            setLoading(true)
+            try {
+                let headers = {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                }
+            
+                let config ={
+                    method: 'DELETE',
+                    headers:headers,
+                }
+        
+                await fetch(`${url}/apis/${id}`, config)
+                setData(
+                    data.filter((element) =>{
+                        return element.id !== id
+                    })
+                )
+                setLoading(false)
+                history.push('/')
+            } catch (error) {
+                console.log("error...........")
+                console.log(error)
+                setLoading(true)
+                setError(error)
+            }
+        }
+    }
     
     function linkFormatter(cell, row, rowIndex, formatExtraData) { 
         return ( 
@@ -45,6 +95,8 @@ const DashboardContainer = () => {
 
     function buttonFormatter(cell, row, rowIndex, formatExtraData) { 
         const ruta = "/edit/"+row.id
+        const ruta2 = "/admin/test/"+row.id
+        const id = row.id
         return ( 
             < div 
                 style={{
@@ -54,7 +106,10 @@ const DashboardContainer = () => {
                 }}
             >
                 < ActionEndPoint
+                    id={id}
                     ruta={ruta}
+                    ruta2={ruta2}
+                    onClick={handleDeleteApi}
                 />
             </div> 
         )
@@ -67,7 +122,7 @@ const DashboardContainer = () => {
         return <FatalError />    
 
     return <Dashboard 
-                data={data.apis}
+                data={data}
                 columns={columns}
             />
 }

@@ -18,6 +18,7 @@ const Create = ({
     handleRemoveUrlElements,
     handleChangeUrl,
     handleChange,
+    handleChangeJson,
     handleSubmit,
     pruebas
 }) => (
@@ -32,7 +33,8 @@ const Create = ({
                         <h3 className="float-left">New API/Endpoint</h3>   
                     </div>
                     <div className="col-12 mb-4">
-                        <FormEndpoint 
+                        <FormEndpoint
+                            action="Add"
                             arrayHeader={arrayHeader}
                             arrayBody={arrayBody}
                             arrayUrl={arrayUrl}
@@ -47,6 +49,7 @@ const Create = ({
                             handleRemoveUrlElements={handleRemoveUrlElements}
                             handleChangeUrl={handleChangeUrl}
                             handleChange={handleChange}
+                            handleChangeJson={handleChangeJson}
                             handleSubmit={handleSubmit}
                             pruebas={pruebas}
                         />

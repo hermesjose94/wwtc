@@ -39,21 +39,6 @@ const Parameters = (
             </div>  
             <div className="col-5">
                 <div className="form-group">
-                    <input 
-                            type="text"
-                            className="form-control"
-                            placeholder="Parameter"
-                            name={parameters}
-                            data-pos={pos}
-                            data-type="2"
-                            required="required"
-                            value={data[pos].value}
-                            onChange={onChange}
-                    />
-                </div>
-            </div>  
-            <div className="col-5">
-                <div className="form-group">
                     <select 
                     className="form-control"
                     name={type}
@@ -66,8 +51,23 @@ const Parameters = (
                         <option value="">Type of value</option>
                         <option value="TEXT">Text</option>
                         <option value="AUDIO">Audio</option>
-                        <option value="STATIC VALUE">Static Value</option>
+                        <option value="STATIC">Static Value</option>
                     </select>
+                </div>
+            </div>  
+            <div className="col-5">
+                <div className="form-group">
+                    <input 
+                            type="text"
+                            className="form-control"
+                            placeholder="Value"
+                            name={parameters}
+                            data-pos={pos}
+                            data-type="2"
+                            required="required"
+                            value={data[pos].value}
+                            onChange={onChange}
+                    />
                 </div>
             </div>  
             <div className="col-2">

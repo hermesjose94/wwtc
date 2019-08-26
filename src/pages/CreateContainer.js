@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React,{ useState, useEffect } from 'react'
 import Create from './Create'
 import Loading from '../components/Loading'
 import FatalError from './500'
@@ -21,6 +21,18 @@ const CreateContainer = ({history}) => {
         ]
     )
 
+    useEffect(() => {    
+        if (arrayHeader.length > 0) {
+            setForm({            
+                ...form,"header_param" : JSON.stringify(arrayHeader)
+            })
+        } else {
+            setForm({            
+                ...form,"header_param" : null
+            })
+        }
+    }, [arrayHeader])
+
     const [ arrayBody, setArrayBody ] = useState(
         [
             {
@@ -30,6 +42,18 @@ const CreateContainer = ({history}) => {
             },
         ]
     )
+
+    useEffect(() => {  
+        if (arrayBody.length > 0) {
+            setForm({            
+                ...form,"body_param" : JSON.stringify(arrayBody)
+            })    
+        } else {
+            setForm({            
+                ...form,"body_param" : null
+            })
+        }
+    }, [arrayBody])
 
     const [ arrayUrl, setArrayUrl ] = useState(
         [
@@ -41,15 +65,27 @@ const CreateContainer = ({history}) => {
         ]
     )
 
+    useEffect(() => {  
+        if (arrayUrl.length > 0) {
+            setForm({            
+                ...form,"url_param" : JSON.stringify(arrayUrl)
+            })    
+        } else {
+            setForm({            
+                ...form,"url_param" : null
+            })
+        }
+    }, [arrayUrl])
+
     const [ form, setForm ] = useState(
         {
             "name": '',
             "method": '',
             "translation_type": '',
             "url": '',
-            "header_param":arrayHeader,
-            "body_param":arrayBody,            
-            "url_param":arrayUrl,
+            "header_param":JSON.stringify(arrayHeader),
+            "body_param":JSON.stringify(arrayBody),
+            "url_param":JSON.stringify(arrayUrl),
             "header": null,
             "body": null,
             "description": null,
@@ -62,18 +98,12 @@ const CreateContainer = ({history}) => {
     const handleAddHeaderElements = e =>{
         var pos = posHeader + 1
         setPosHeader(pos)
-
         var newElemnt =  {
             name_param: '',
             type: '',
             value: ''
         }
-        
         setArrayHeader([...arrayHeader,newElemnt])
-
-        setForm({            
-            ...form,["header_param"] : JSON.stringify(arrayHeader)
-        })
     }
 
     const handleRemoveHeaderElements = (index) =>{
@@ -88,20 +118,16 @@ const CreateContainer = ({history}) => {
 
     const handleChangeHeader = e => {
         var array = arrayHeader
-
-        if (e.target.dataset.type == 1) {
+        if (e.target.dataset.type === "1") {
             array[e.target.dataset.pos].name_param = e.target.value    
-        }else if (e.target.dataset.type == 2){
+        }else if (e.target.dataset.type === "2"){
             array[e.target.dataset.pos].value      = e.target.value
-        }else if (e.target.dataset.type == 3){
+        }else if (e.target.dataset.type === "3"){
             array[e.target.dataset.pos].type       = e.target.value
         }
-        
-        
         setArrayHeader(array)
-
         setForm({            
-            ...form,["header_param"] : JSON.stringify(arrayHeader)
+            ...form,"header_param" : JSON.stringify(arrayHeader)
         })
     }
 
@@ -115,12 +141,7 @@ const CreateContainer = ({history}) => {
             type: '',
             value: ''
         }
-
         setArrayBody([...arrayBody,newElemnt])
-
-        setForm({            
-            ...form,["body_param"] : JSON.stringify(arrayBody)
-        })
     }
 
     const handleRemoveBodyElements = (index) =>{
@@ -135,18 +156,16 @@ const CreateContainer = ({history}) => {
 
     const handleChangeBody = e => {
         var array = arrayBody
-
-        if (e.target.dataset.type == 1) {
+        if (e.target.dataset.type === "1") {
             array[e.target.dataset.pos].name_param = e.target.value    
-        }else if (e.target.dataset.type == 2){
+        }else if (e.target.dataset.type === "2"){
             array[e.target.dataset.pos].value      = e.target.value
-        }else if (e.target.dataset.type == 3){
+        }else if (e.target.dataset.type === "3"){
             array[e.target.dataset.pos].type       = e.target.value
         }
         setArrayBody(array)
-
         setForm({            
-            ...form,["body_param"] : JSON.stringify(arrayBody)
+            ...form,"body_param" : JSON.stringify(arrayBody)
         })
     }
 
@@ -162,10 +181,6 @@ const CreateContainer = ({history}) => {
             value: ''
         }
         setArrayUrl([...arrayUrl,newElemnt])
-
-        setForm({            
-            ...form,["url_param"] : JSON.stringify(arrayUrl)
-        })
     }
 
     const handleRemoveUrlElements = (index) =>{
@@ -181,17 +196,16 @@ const CreateContainer = ({history}) => {
     const handleChangeUrl = e => {
         var array = arrayUrl
 
-        if (e.target.dataset.type == 1) {
+        if (e.target.dataset.type === "1") {
             array[e.target.dataset.pos].name_param = e.target.value    
-        }else if (e.target.dataset.type == 2){
+        }else if (e.target.dataset.type === "2"){
             array[e.target.dataset.pos].value      = e.target.value
-        }else if (e.target.dataset.type == 3){
+        }else if (e.target.dataset.type === "3"){
             array[e.target.dataset.pos].type       = e.target.value
         }
         setArrayUrl(array)
-
         setForm({            
-            ...form,["url_param"] : JSON.stringify(arrayUrl)
+            ...form,"url_param" : JSON.stringify(arrayUrl)
         })
     }
 
@@ -203,6 +217,12 @@ const CreateContainer = ({history}) => {
         })
     }
 
+    const handleChangeJson = e => {
+        setForm({            
+            ...form,[e.target.name] : JSON.stringify(e.target.value)
+        })
+    }
+
     const handleSubmit = async e => {
         setLoading(true)
         e.preventDefault()
@@ -211,37 +231,16 @@ const CreateContainer = ({history}) => {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
             }
-            
-            let body = {
-                "name":"cumque2",
-                "url":"enim",
-                "body":"facere",
-                "body_param":null,
-                "header":"amet",
-                "header_param":null,
-                "url_param":null,
-                "method":"pariatur",
-                "description":"quia",
-                "output":null,
-                "translation_type":"Text to Speech"
-            }
-            console.log("BODY...........")
-            console.log(body)
-            console.log("JSON...........")
-            console.log(form)
-            console.log("JSON STRING...........")
-            console.log(JSON.stringify(form))
+        
             let config ={
                 method: 'POST',
                 headers:headers,
                 body: JSON.stringify(form)
             }
-    
             await fetch(`${url}/apis`, config)
             setLoading(false)
             history.push('/')
         } catch (error) {
-            console.log("error...........")
             console.log(error)
             setLoading(true)
             setError(error)
@@ -250,10 +249,16 @@ const CreateContainer = ({history}) => {
     }
 
     const pruebas = () => {
-        console.log("JSON")
+        console.log("Array H...........")
+        console.log(arrayHeader)
+        console.log("Array B...........")
+        console.log(arrayBody)
+        console.log("Array U...........")
+        console.log(arrayUrl)
+        console.log("JSON...........")
         console.log(form)
+        console.log("JSON STRING...........")
         console.log(JSON.stringify(form))
-        
     }
     if(loading)
         return <Loading />
@@ -277,6 +282,7 @@ const CreateContainer = ({history}) => {
                 handleRemoveUrlElements={handleRemoveUrlElements}
                 handleChangeUrl={handleChangeUrl}
                 handleChange={handleChange}
+                handleChangeJson={handleChangeJson}
                 handleSubmit={handleSubmit}
                 pruebas={pruebas}
             />
@@ -284,3 +290,5 @@ const CreateContainer = ({history}) => {
 }
 
 export default CreateContainer
+
+
