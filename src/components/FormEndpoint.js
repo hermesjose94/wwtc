@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Parameters from './Parameters'
+import Config from '../config'
 
 const FormEndpoint = ({
     action,
@@ -220,7 +221,11 @@ const FormEndpoint = ({
                 </div>
                 <div className="col-12">
                     <Link to="/" className="btn btn-danger float-left">Cancel</Link>
-                    <button type="button" onClick={pruebas} className="btn btn-dark d-none">Prueba Json</button>
+                    {Config.prueba ? (
+                        <button type="button" className="btn btn-dark" onClick={pruebas}>Prueba Json</button>
+                    ) : (
+                        <button type="button" className="btn btn-dark d-none" onClick={pruebas}>Prueba Json</button>
+                    )}
                     <button type="submit" className="btn btn-primary float-right">{action} API/Endpoint</button>
                 </div> 
             </div> 

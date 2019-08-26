@@ -1,7 +1,7 @@
 import React,{ useState, useEffect } from 'react'
 import Loading from '../components/Loading'
 import FatalError from './500'
-import url from '../config'
+import Config from '../config'
 import Test from './Test'
 
 const TestContainer = () => {
@@ -71,11 +71,11 @@ const TestContainer = () => {
                     headers:headers,
                 }
 
-                let res = await fetch(`${url}/languages`,config)
+                let res = await fetch(`${Config.url}/languages`,config)
                 let data = await res.json()
                 setLanguages(data.languages)
 
-                let res2 = await fetch(`${url}/apis`)
+                let res2 = await fetch(`${Config.url}/apis`)
                 let data2 = await res2.json()
                 setEndpoints(data2.apis)
                 
@@ -103,7 +103,7 @@ const TestContainer = () => {
                 headers:headers,
                 body: JSON.stringify(json)
             }
-            let res  = await fetch(`${url}/apis/${id}/test`, config)
+            let res  = await fetch(`${Config.url}/apis/${id}/test`, config)
             let data = await res.json()
             setResult(data)  
             setLoading(false)

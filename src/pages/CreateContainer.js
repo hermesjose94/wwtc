@@ -2,7 +2,7 @@ import React,{ useState, useEffect } from 'react'
 import Create from './Create'
 import Loading from '../components/Loading'
 import FatalError from './500'
-import url from '../config'
+import Config from '../config'
 
 const CreateContainer = ({history}) => {
     const [ loading, setLoading ] = useState(false)
@@ -237,7 +237,7 @@ const CreateContainer = ({history}) => {
                 headers:headers,
                 body: JSON.stringify(form)
             }
-            await fetch(`${url}/apis`, config)
+            await fetch(`${Config.url}/apis`, config)
             setLoading(false)
             history.push('/')
         } catch (error) {

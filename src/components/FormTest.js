@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Parameter from '../components/TestParameters'
+import Config from '../config'
 
 const FormTest = ({
     id,
@@ -122,7 +123,7 @@ const FormTest = ({
                                     <tr>
                                         <td>{arrayResult.vendor}</td>
                                         <td>Text</td>
-                                        <td>{arrayResult.targetText}</td>
+                                        <td>{arrayResult.targetText || arrayResult.recognizedText}</td>
                                     </tr>
                                 
                             </tbody>
@@ -167,7 +168,11 @@ const FormTest = ({
             <div className="col-12">
                 <hr></hr>
                 <Link to="/" className="btn btn-danger float-left">Cancel</Link>
-                <button type="button" onClick={pruebas} className="btn btn-dark d-none">Prueba Json</button>
+                {Config.prueba ? (
+                        <button type="button" className="btn btn-dark" onClick={pruebas}>Prueba Json</button>
+                    ) : (
+                        <button type="button" className="btn btn-dark d-none" onClick={pruebas}>Prueba Json</button>
+                )}
                 <button type="submit" className="btn btn-primary float-right">Test Endpoint</button>
             </div> 
         </form>

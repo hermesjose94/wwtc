@@ -1,6 +1,6 @@
 import React,{ useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import url from '../config'
+import Config from '../config'
 import ActionEndPoint from '../components/ActionEndPoint'
 import Dashboard from './Dashboard'
 import Loading from '../components/Loading'
@@ -41,7 +41,7 @@ const DashboardContainer = ({history}) => {
     useEffect(() =>{
         const fetchResource = async () => {
             try {
-                let res = await fetch(`${url}/apis`)
+                let res = await fetch(`${Config.url}/apis`)
                 let data = await res.json()
                 
                 setData(data.apis)
@@ -70,7 +70,7 @@ const DashboardContainer = ({history}) => {
                     headers:headers,
                 }
         
-                await fetch(`${url}/apis/${id}`, config)
+                await fetch(`${Config.url}/apis/${id}`, config)
                 setData(
                     data.filter((element) =>{
                         return element.id !== id

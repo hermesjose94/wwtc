@@ -2,9 +2,14 @@ import React,{ useState, useEffect } from 'react'
 import TestAdmin from './TestAdmin'
 import Loading from '../components/Loading'
 import FatalError from './500'
-import url from '../config'
+import Config from '../config'
 
 const TestAdminContainer = ({ history,match }) =>{
+
+//      console.log(prueba);
+
+
+    
 
     const [ loading, setLoading ] = useState(true)
     const [ error, setError ] = useState(null)
@@ -42,7 +47,7 @@ const TestAdminContainer = ({ history,match }) =>{
                     headers:headers,
                 }
 
-                let res = await fetch(`${url}/apis/${match.params.id}`,config)
+                let res = await fetch(`${Config.url}/apis/${match.params.id}`,config)
                 let data = await res.json()
                 setForm(data.api)
                 setArrayHeader(JSON.parse(data.api.header_param))
@@ -66,7 +71,7 @@ const TestAdminContainer = ({ history,match }) =>{
                     console.log(reader.result)
                     var result={}
                     Object.keys(json).forEach((key) => result[key] = json[key])
-                    result["file"] = reader.result
+                    result["file"] = reader.result.substring(22)
                     setJson(result)
                 }
                 reader.onerror = function (error) {
@@ -145,7 +150,7 @@ const TestAdminContainer = ({ history,match }) =>{
                     headers:headers,
                 }
         
-                await fetch(`${url}/apis/${id}`, config)
+                await fetch(`${Config.url}/apis/${id}`, config)
                 setLoading(false)
                 history.push('/')
             } catch (error) {
@@ -172,11 +177,15 @@ const TestAdminContainer = ({ history,match }) =>{
                 headers:headers,
                 body: JSON.stringify(json)
             }
-            let res  = await fetch(`${url}/apis/${match.params.id}/test`, config)
+            let res  = await fetch(`${Config.url}/apis/${match.params.id}/test`, config)
             if (form.translation_type === "Text to Text" || form.translation_type === "Speech to Text") {
                 let data = await res.json()
                 setArrayResult(data)    
+                console.log("entro");
+                
             }
+            console.log("AQUI");
+            
             setLoading(false)
         } catch (error) {
             console.log(error)
@@ -202,10 +211,10 @@ const TestAdminContainer = ({ history,match }) =>{
         console.log(arrayUrl)
         console.log("JSON...........")
         console.log(json)
-        console.log("MIRAR")
-        console.log(json["header param 1"])
         console.log("JSON STRING...........")
         console.log(JSON.stringify(json))
+        console.log("RESULT...........")
+        console.log(arrayResult)
     }
 
     if(loading)

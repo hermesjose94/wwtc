@@ -1,4 +1,4 @@
 const url = 'http://apitester.nelumbo.com.co/api'
-
-export default url
+const prueba = true
+export default {url,prueba}
 

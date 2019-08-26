@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faFlag, faCopy } from "@fortawesome/free-solid-svg-icons"
+import Config from '../config'
 
 const FormTextToText = ({
     languages,
@@ -119,7 +120,11 @@ const FormTextToText = ({
                 </div>
                 <div className="col-12">
                     <Link to="/" className="btn btn-danger float-left"><FontAwesomeIcon icon={faCopy} /> Copy</Link>
-                    <button type="button" className="btn btn-dark d-none" onClick={pruebas}>Prueba Json</button>
+                    {Config.prueba ? (
+                        <button type="button" className="btn btn-dark" onClick={pruebas}>Prueba Json</button>
+                    ) : (
+                        <button type="button" className="btn btn-dark d-none" onClick={pruebas}>Prueba Json</button>
+                    )}
                     <button type="submit" className="btn btn-primary float-right">SEND</button>
                 </div> 
             </form>

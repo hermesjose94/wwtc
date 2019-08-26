@@ -2,7 +2,7 @@ import React,{ useState, useEffect } from 'react'
 import Edit from './Edit'
 import Loading from '../components/Loading'
 import FatalError from './500'
-import url from '../config'
+import Config from '../config'
 
 const EditContainer = ({history,match}) => {
     const [ loading, setLoading ] = useState(true)
@@ -122,7 +122,7 @@ const EditContainer = ({history,match}) => {
                     headers:headers,
                 }
 
-                let res = await fetch(`${url}/apis/${match.params.id}`,config)
+                let res = await fetch(`${Config.url}/apis/${match.params.id}`,config)
                 let data = await res.json()
                 setForm(data.api)
                 setArrayHeader(JSON.parse(data.api.header_param))
@@ -282,7 +282,7 @@ const EditContainer = ({history,match}) => {
                 headers:headers,
                 body: JSON.stringify(form)
             }
-            await fetch(`${url}/apis/${match.params.id}`, config)
+            await fetch(`${Config.url}/apis/${match.params.id}`, config)
             setLoading(false)
             history.push('/')
         } catch (error) {
