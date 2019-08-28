@@ -27,7 +27,7 @@ const FormEndpoint = ({
     return(
         <form onSubmit={handleSubmit}>
             <div className="row">
-                <div className="col-4">
+                <div className="col-lg-4 col-md-4">
                     <div className="form-group">
                         <input 
                                 type="text"
@@ -40,7 +40,7 @@ const FormEndpoint = ({
                         />
                     </div>
                 </div>
-                <div className="col-4">
+                <div className="col-lg-4 col-md-4">
                     <div className="form-group">
                         <select
                         className="form-control" 
@@ -57,7 +57,7 @@ const FormEndpoint = ({
                         </select>
                     </div>
                 </div>
-                <div className="col-4">
+                <div className="col-lg-4 col-md-4">
                     <div className="form-group">
                         <select 
                         className="form-control" 

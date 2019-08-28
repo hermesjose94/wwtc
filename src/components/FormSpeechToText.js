@@ -1,79 +1,156 @@
-
 import React from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCopy , faUpload , faMicrophoneAlt} from "@fortawesome/free-solid-svg-icons"
+import Config from '../config'
+import './styles/FormSTT.css'
+//import  '../recorder'
+//import Recorder from 'react-recorder'
 
-const FormSpeechToText = () => (
-    <form className="row">
-        <div className="col-12 mb-4">
-            <h3>Speech-to-Text</h3>
-        </div>  
-        <div className="col-12">
-            <div className="form-group">
-                <select className="form-control">
-                    <option>Select Endpoint</option>
-                    <option value="1">Endpoint 1</option>
-                    <option value="2">Endpoint 2</option>
-                    <option value="3">Endpoint 3</option>
-                </select>
-            </div>
-        </div>
-        <div className="col-12">
-            <div className="form-group">
-                <select className="form-control">
-                    <option>Select Provider</option>
-                    <option value="1">Provider 1</option>
-                    <option value="2">Provider 2</option>
-                    <option value="3">Provider 3</option>
-                </select>
-            </div>
-        </div>
-        <div className="col-12">
-            <div className="form-group">
-                <select className="form-control">
-                    <option>Select Language</option>
-                    <option value="1">Spanish</option>
-                    <option value="2">English</option>
-                </select>
-            </div>
-        </div>
-        <div className="col-12">
-            <div className="form-group">
-                <select className="form-control">
-                    <option>Select Voice</option>
-                    <option value="1">Voice 1</option>
-                    <option value="2">Voice 2</option>
-                </select>
-            </div>
-        </div>
-        <div className="col-6">
-            <a href="#">
-                <div className="form-group border p-4">
-                    <FontAwesomeIcon icon={faUpload} size="4x"/>
-                    <br></br>
-                    <span>Choose a file</span>
-                </div>
-            </a>
-        </div>
-        <div className="col-6">
-            <a href="#">
-                <div className="form-group border p-4">
-                    <FontAwesomeIcon icon={faMicrophoneAlt} size="4x"/>
-                    <br></br>
-                    <span>Use your voice</span>
-                </div>
-            </a>
-        </div>
-        <div className="col-12">
-            <div className="form-group">
-                <textarea readOnly className="form-control" rows="6" id="comment"></textarea>
-                <div className="copyTtT text-left">
-                    <a href="#"><FontAwesomeIcon icon={faCopy} /> Copy Text to TTT</a>    
-                </div>
-            </div>
-        </div>
-    </form>
 
-)
+const FormSpeechToText = ({
+    id,
+    languages,
+    providers,
+    endpoints,
+    json,
+    result,
+    selectEndpoint,
+    selectProvider,
+    fromLanguage,
+    buttonCopy,
+    handleChangeFile,
+    handleButtonFile,
+    startRecording,
+    stopRecording,
+    handleSubmit,
+    pruebas,
+}) => {
+    var array = endpoints.filter(function (pilot) {
+        return pilot.translation_type === "Speech to Text"
+    })
+
+    return(
+        <form 
+            className="row"
+            onSubmit={handleSubmit}
+        >
+            <div className="col-12 mb-4">
+                <h3>Speech-to-Text</h3>
+            </div>  
+            <div className="col-12">
+                <div className="form-group">
+                    <select 
+                        className="form-control"
+                        value={id}
+                        data-type="STT"
+                        onChange={selectEndpoint}
+                    >   
+                        <option>Select Endpoint</option>
+                        {
+                            array && array.map((element,i) => 
+                                <option value={element.id} key={element.id}>{element.name}</option>
+                            )
+                        }
+                    </select>
+                </div>
+            </div>
+            <div className="col-12">
+                <div className="form-group">
+                    <select 
+                        className="form-control"
+                        value={json.vendor}
+                        data-type="STT"
+                        onChange={selectProvider}
+                    >
+                        <option>Select Provider</option>
+                        {
+                            providers && providers.map((element,i) => 
+                                <option value={element.code} key={element.code}>{element.name}</option>
+                            )
+                        }    
+                    </select>
+                </div>
+            </div>
+            <div className="col-12">
+                <div className="form-group">
+                    <select 
+                        className="form-control"
+                        value={json.sourceLanguage}
+                        data-type="STT"
+                        onChange={fromLanguage}
+                    >
+                        <option value="">Select option</option>
+                        {
+                            languages && languages.map((element,i) => 
+                                <option value={element.code} key={element.id}>{element.name}</option>
+                            )
+                        }
+                    </select>
+                </div>
+            </div>
+            <div className="col-6">
+                <div 
+                    className="buttonBox"
+                    onClick={handleButtonFile}
+                >
+                    <div className="form-group border p-4">
+                        <FontAwesomeIcon icon={faUpload} size="4x"/>
+                        <br></br>
+                        <span>File</span>
+                    </div>
+                </div>
+            </div>
+            <div className="col-6">
+                <div 
+                    className="buttonBox"
+                    onMouseDown={startRecording}
+                    onMouseUp={stopRecording}
+                >
+                    <div className="form-group border p-4">
+                        <FontAwesomeIcon icon={faMicrophoneAlt} size="4x"/>
+                        <br></br>
+                        <span>Voice</span>
+                    </div>
+                </div>
+            </div>
+            <div className="col-12" id="contentAudio">
+            </div>
+            <div className="col-12">
+                <div className="form-group">
+                    <textarea 
+                        id="CopySTT"
+                        readOnly 
+                        className="form-control" 
+                        rows="8"
+                        defaultValue={result && result.recognizedText}
+                        >
+                        </textarea>
+                </div>
+                <input 
+                    type="file" 
+                    className="d-none" 
+                    id="fileSTT" 
+                    aria-describedby="fileHelp"
+                    name="file"
+                    onChange={handleChangeFile}/>
+            </div>
+            <div className="col-12">
+                <button 
+                    type="button"
+                    className="btn btn-light float-left"
+                    onClick={buttonCopy}
+                >
+                    <FontAwesomeIcon icon={faCopy} /> Copy
+                </button>
+                {Config.prueba ? (
+                    <button type="button" className="btn btn-dark" onClick={pruebas}>Prueba Json</button>
+                ) : (
+                    <button type="button" className="btn btn-dark d-none" onClick={pruebas}>Prueba Json</button>
+                )}
+                <button type="submit" className="btn btn-primary float-right">SEND</button>
+            </div> 
+        </form>
+    )
+}
 
 export default FormSpeechToText

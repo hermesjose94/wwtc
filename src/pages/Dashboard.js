@@ -18,13 +18,15 @@ const Dashboard = ({data,columns}) => {
     
     return(
     <div className="App">
-        <Navigation/>
+        <Navigation
+            menu="1"
+        />
         <div className="container mt-4">
             <div className="row">
                 <div className="col-12 mb-4">
                     <AddEndPoint /> 
                 </div>
-                <div className="col-12 mb-2">
+                <div className="table-responsive col-12 mb-2">
                     <ToolkitProvider
                         bootstrap4
                         keyField='id' 

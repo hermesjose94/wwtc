@@ -1,11 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faFlag, faCopy } from "@fortawesome/free-solid-svg-icons"
 import Config from '../config'
 
 const FormTextToText = ({
+    id,
     languages,
+    providers,
     endpoints,
     json,
     result,
@@ -14,6 +15,7 @@ const FormTextToText = ({
     fromLanguage,
     toLanguage,
     ChangeText,
+    buttonCopy,
     handleSubmit,
     pruebas
 }) => {
@@ -32,8 +34,10 @@ const FormTextToText = ({
                     <div className="form-group">
                         <select 
                             className="form-control"
+                            value={id}
+                            data-type="TTT"
                             onChange={selectEndpoint}
-                        >
+                        >   
                             <option>Select Endpoint</option>
                             {
                                 array && array.map((element,i) => 
@@ -47,16 +51,16 @@ const FormTextToText = ({
                     <div className="form-group">
                         <select 
                             className="form-control"
+                            value={json.vendor}
+                            data-type="TTT"
                             onChange={selectProvider}
                         >
                             <option>Select Provider</option>
-                            <option value="google">GOOGLE</option>
-                            <option value="microsoft">MICROSOFT</option>
-                            <option value="SDL">SDL</option>
-                            <option value="systran">SYSTRAN</option>
-                            <option value="baidu">BAIDU</option>
-                            <option value="yandex">YANDEX</option>
-                            
+                            {
+                                providers && providers.map((element,i) => 
+                                    <option value={element.code} key={element.code}>{element.name}</option>
+                                )
+                            }    
                         </select>
                     </div>
                 </div>
@@ -66,6 +70,8 @@ const FormTextToText = ({
                         <div className="col-sm-9">
                             <select 
                                 className="form-control"
+                                value={json.sourceLanguage}
+                                data-type="TTT"
                                 onChange={fromLanguage}
                             >
                                 <option value="">Select option</option>
@@ -83,8 +89,9 @@ const FormTextToText = ({
                         <textarea 
                             className="form-control" 
                             rows="5" 
-                            onChange={ChangeText}
                             value={json.Text}
+                            data-type="TTT"
+                            onChange={ChangeText}
                         >
                         </textarea>
                     </div>
@@ -95,6 +102,8 @@ const FormTextToText = ({
                         <div className="col-sm-9">
                             <select 
                                 className="form-control"
+                                data-type="TTT"
+                                value={json.targetLanguage}
                                 onChange={toLanguage}
                             >
                                 <option value="">Select option</option>
@@ -110,6 +119,7 @@ const FormTextToText = ({
                 <div className="col-12">
                     <div className="form-group">
                         <textarea 
+                            id="CopyTTT"
                             readOnly 
                             className="form-control" 
                             rows="5"
@@ -119,7 +129,13 @@ const FormTextToText = ({
                     </div>
                 </div>
                 <div className="col-12">
-                    <Link to="/" className="btn btn-light float-left"><FontAwesomeIcon icon={faCopy} /> Copy</Link>
+                    <button 
+                        type="button"
+                        className="btn btn-light float-left"
+                        onClick={buttonCopy}
+                    >
+                        <FontAwesomeIcon icon={faCopy} /> Copy
+                    </button>
                     {Config.prueba ? (
                         <button type="button" className="btn btn-dark" onClick={pruebas}>Prueba Json</button>
                     ) : (

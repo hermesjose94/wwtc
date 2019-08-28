@@ -9,49 +9,96 @@ import FormSpeechToText from '../components/FormSpeechToText';
 
 const Edit = ({
     languages,
+    providers,
+    voices,
     endpoints,
-    json,
-    result,
+    idTTT,
+    jsonTTT,
+    resultTTT,
+    idTTS,
+    jsonTTS,
+    idSTT,
+    jsonSTT,
+    resultSTT,
     selectEndpoint,
     selectProvider,
     fromLanguage,
     toLanguage,
+    handleChangeVoice,
     ChangeText,
-    handleSubmit,
+    handleChangeFile,
+    handleButtonFile,
+    buttonCopyTTT,
+    buttonCopySTT,
+    startRecording,
+    stopRecording,
+    handleSubmitTTT,
+    handleSubmitTTS,
+    handleSubmitSTT,
     pruebas
 }) => (
     <div className="App">
-        <Navigation/>
+        <Navigation
+            menu="2"
+        />
         <Breadcrumb
             name="Test Endpoint"
         />
         <div className="container mt-4">
             <div className="row">
-                <div className="col-4 mb-4 border border-right-0">
+                <div className="col-sm mb-4 border border-right-0 p-4">
                     <FormSpeechToText 
-                        languages={languages}    
-                        endpoints={endpoints}
+                        id={idSTT}
+                        languages={languages} 
+                        providers={providers}
+                        endpoints={endpoints}   
+                        json={jsonSTT}
+                        result={resultSTT}
+                        selectEndpoint={selectEndpoint}
+                        selectProvider={selectProvider}
+                        fromLanguage={fromLanguage}
+                        handleChangeFile={handleChangeFile}
+                        handleButtonFile={handleButtonFile}
+                        buttonCopy={buttonCopySTT}
+                        startRecording={startRecording}
+                        stopRecording={stopRecording}
+                        handleSubmit={handleSubmitSTT}
+                        pruebas={pruebas}
                     />
                 </div>
-                <div className="col-4 mb-4 border border-right-0">
+                <div className="col-sm mb-4 border border-right-0 p-4">
                     <FormTextToText 
+                        id={idTTT}
                         languages={languages}
+                        providers={providers}
                         endpoints={endpoints}
-                        json={json}
-                        result={result}
+                        json={jsonTTT}
+                        result={resultTTT}
                         selectEndpoint={selectEndpoint}
                         selectProvider={selectProvider}
                         fromLanguage={fromLanguage}
                         toLanguage={toLanguage}
                         ChangeText={ChangeText}
-                        handleSubmit={handleSubmit}
+                        buttonCopy={buttonCopyTTT}
+                        handleSubmit={handleSubmitTTT}
                         pruebas={pruebas}
                     />
                 </div>
-                <div className="col-4 mb-4 border">
+                <div className="col-sm mb-4 border p-4">
                     <FormTextToSpeech 
+                        id={idTTS}
                         languages={languages}
+                        providers={providers}
+                        voices={voices}
                         endpoints={endpoints}
+                        json={jsonTTS}
+                        selectEndpoint={selectEndpoint}
+                        selectProvider={selectProvider}
+                        fromLanguage={fromLanguage}
+                        handleChangeVoice={handleChangeVoice}
+                        ChangeText={ChangeText}
+                        handleSubmit={handleSubmitTTS}
+                        pruebas={pruebas}
                     />
                 </div>
             </div>

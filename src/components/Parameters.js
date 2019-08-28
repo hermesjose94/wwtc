@@ -37,7 +37,7 @@ const Parameters = (
                     />
                 </div>
             </div>  
-            <div className="col-5">
+            <div className="col-lg-5 col-md-5">
                 <div className="form-group">
                     <select 
                     className="form-control"
@@ -55,7 +55,7 @@ const Parameters = (
                     </select>
                 </div>
             </div>  
-            <div className="col-5">
+            <div className="col-lg-5 col-md-5">
                 <div className="form-group">
                     <input 
                             type="text"
@@ -70,27 +70,33 @@ const Parameters = (
                     />
                 </div>
             </div>  
-            <div className="col-2">
-                <button 
-                    type="button" 
-                    className="btn btn-danger mr-1 float-right"
-                    onClick={onClickRemove.bind(this, pos)}
-                    tabIndex="-1"
-                >
-                        <FontAwesomeIcon 
-                            icon={faMinus} 
-                        />
-                </button>
-                <button 
-                    type="button" 
-                    className="btn btn-primary mr-1 float-right"
-                    onClick={onClickAdd}
-                    tabIndex="-1"
-                >
-                        <FontAwesomeIcon 
-                            icon={faPlus} 
-                        />
-                </button>
+            <div className="col-lg-2 col-md-2">
+                <div className="d-flex justify-content-end">
+                    <div className="bd-highlight p-1">
+                        <button 
+                            type="button" 
+                            className="btn btn-danger mr-1 float-right"
+                            onClick={onClickRemove.bind(this, pos)}
+                            tabIndex="-1"
+                        >
+                            <FontAwesomeIcon 
+                                icon={faMinus} 
+                            />
+                        </button>
+                    </div>  
+                    <div className="bd-highlight p-1">
+                        <button 
+                            type="button" 
+                            className="btn btn-primary mr-1 float-right"
+                            onClick={onClickAdd}
+                            tabIndex="-1"
+                        >
+                            <FontAwesomeIcon 
+                                icon={faPlus} 
+                            />
+                        </button>
+                    </div>  
+                </div>  
             </div> 
         </div>
     )    

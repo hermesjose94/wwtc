@@ -6,11 +6,6 @@ import Config from '../config'
 
 const TestAdminContainer = ({ history,match }) =>{
 
-//      console.log(prueba);
-
-
-    
-
     const [ loading, setLoading ] = useState(true)
     const [ error, setError ] = useState(null)
     const [ arrayHeader, setArrayHeader ] = useState()
@@ -165,7 +160,6 @@ const TestAdminContainer = ({ history,match }) =>{
     const handleSubmit = async e => {
         setLoading(true)
         e.preventDefault()
-        
         try {
             let headers = {
                 "Content-Type": "application/json",
@@ -184,15 +178,16 @@ const TestAdminContainer = ({ history,match }) =>{
                 console.log("entro");
                 
             }
-            console.log("AQUI");
-            
             setLoading(false)
         } catch (error) {
             console.log(error)
             setLoading(false)
-            if (error !== "TypeError: Failed to fetch") {
+            if (form.translation_type === "Text to Text" || form.translation_type === "Speech to Text") {
                 setError(error)    
             }
+            /*if (error != "TypeError: Failed to fetch") {
+                setError(error)    
+            }*/
             setArrayResult({"audio": "",})    
         }
     }

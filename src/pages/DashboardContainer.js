@@ -1,5 +1,4 @@
 import React,{ useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import Config from '../config'
 import ActionEndPoint from '../components/ActionEndPoint'
 import Dashboard from './Dashboard'
@@ -18,7 +17,6 @@ const DashboardContainer = ({history}) => {
             dataField: 'name',
             text: 'Endpoint',
             sort: true,
-            formatter: linkFormatter,
         }, 
         {
             dataField: 'url',
@@ -87,12 +85,6 @@ const DashboardContainer = ({history}) => {
         }
     }
     
-    function linkFormatter(cell, row, rowIndex, formatExtraData) { 
-        return ( 
-            <Link to="/test" >{row.name}</Link>
-        )
-    }
-
     function buttonFormatter(cell, row, rowIndex, formatExtraData) { 
         const ruta = "/edit/"+row.id
         const ruta2 = "/admin/test/"+row.id
