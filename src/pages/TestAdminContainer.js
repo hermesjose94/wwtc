@@ -60,10 +60,18 @@ const TestAdminContainer = ({ history,match }) =>{
     useEffect(() =>{
         const genereJson = () => {
             if (file) {
+                var zone = document.getElementById("contentAudio")
+                var url = URL.createObjectURL(file)
+                var au = document.createElement('audio')
+                var hr = document.createElement('hr')
+                au.controls = true
+                au.src = url
+                zone.innerHTML='';
+                zone.appendChild(hr)
+                zone.appendChild(au)
                 var reader = new FileReader()
                 reader.readAsDataURL(file)
                 reader.onload = function () {
-                    console.log(reader.result)
                     var result={}
                     Object.keys(json).forEach((key) => result[key] = json[key])
                     result["file"] = reader.result.substring(22)
@@ -157,6 +165,27 @@ const TestAdminContainer = ({ history,match }) =>{
         }
     }
 
+    const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
+        
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+          const slice = byteCharacters.slice(offset, offset + sliceSize);
+          
+          const byteNumbers = new Array(slice.length);
+          for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+          
+          const byteArray = new Uint8Array(byteNumbers);
+          
+          byteArrays.push(byteArray);
+        }
+        
+        const blob = new Blob(byteArrays, {type: contentType});
+        return blob;
+    }
+
     const handleSubmit = async e => {
         setLoading(true)
         e.preventDefault()
@@ -172,13 +201,23 @@ const TestAdminContainer = ({ history,match }) =>{
                 body: JSON.stringify(json)
             }
             let res  = await fetch(`${Config.url}/apis/${match.params.id}/test`, config)
-            if (form.translation_type === "Text to Text" || form.translation_type === "Speech to Text") {
-                let data = await res.json()
-                setArrayResult(data)    
-                console.log("entro");
-                
-            }
+            let data = await res.json()
             setLoading(false)
+            if (form.translation_type === "Text to Text" || form.translation_type === "Speech to Text") {
+                setArrayResult(data)    
+            }else{
+                setArrayResult(data)    
+                const contentType = 'audio/wav'
+                const b64Data = data.audio64
+                const blob = b64toBlob(b64Data, contentType)
+                var zone = document.getElementById("contentAudio")
+                var url = URL.createObjectURL(blob)
+                var au = document.createElement('audio')
+                au.controls = true
+                au.src = url
+                zone.innerHTML=''
+                zone.appendChild(au)
+            }
         } catch (error) {
             console.log(error)
             setLoading(false)

@@ -28,31 +28,33 @@ const Edit = ({
                 name="Edit API/Endpoint"
             />
             <div className="container mt-4">
-                <div className="row">
-                    <div className="col-12 mb-4">
-                        <h3 className="float-left">Edit API/Endpoint</h3>   
-                    </div>
-                    <div className="col-12 mb-4">
-                        <FormEndpoint 
-                            action="Edit"
-                            arrayHeader={arrayHeader}
-                            arrayBody={arrayBody}
-                            arrayUrl={arrayUrl}
-                            form={form}
-                            handleAddHeaderElements={handleAddHeaderElements}
-                            handleRemoveHeaderElements={handleRemoveHeaderElements}
-                            handleChangeHeader={handleChangeHeader}
-                            handleAddBodyElements={handleAddBodyElements}
-                            handleRemoveBodyElements={handleRemoveBodyElements}
-                            handleChangeBody={handleChangeBody}
-                            handleAddUrlElements={handleAddUrlElements}
-                            handleRemoveUrlElements={handleRemoveUrlElements}
-                            handleChangeUrl={handleChangeUrl}
-                            handleChange={handleChange}
-                            handleChangeJson={handleChangeJson}
-                            handleSubmit={handleSubmit}
-                            pruebas={pruebas}
-                        />
+                <div className="card shadow">
+                    <div className="card-body row">
+                        <div className="col-12 mb-4">
+                            <h3 className="float-left">Edit API/Endpoint</h3>   
+                        </div>
+                        <div className="col-12 mb-4">
+                            <FormEndpoint 
+                                action="Edit"
+                                arrayHeader={arrayHeader}
+                                arrayBody={arrayBody}
+                                arrayUrl={arrayUrl}
+                                form={form}
+                                handleAddHeaderElements={handleAddHeaderElements}
+                                handleRemoveHeaderElements={handleRemoveHeaderElements}
+                                handleChangeHeader={handleChangeHeader}
+                                handleAddBodyElements={handleAddBodyElements}
+                                handleRemoveBodyElements={handleRemoveBodyElements}
+                                handleChangeBody={handleChangeBody}
+                                handleAddUrlElements={handleAddUrlElements}
+                                handleRemoveUrlElements={handleRemoveUrlElements}
+                                handleChangeUrl={handleChangeUrl}
+                                handleChange={handleChange}
+                                handleChangeJson={handleChangeJson}
+                                handleSubmit={handleSubmit}
+                                pruebas={pruebas}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -37,7 +37,7 @@ const Edit = ({
     handleSubmitSTT,
     pruebas
 }) => (
-    <div className="App">
+    <div className="App background-image">
         <Navigation
             menu="2"
         />
@@ -46,7 +46,7 @@ const Edit = ({
         />
         <div className="container mt-4">
             <div className="row">
-                <div className="col-sm mb-4 border border-right-0 p-4">
+                <div className="col-sm mb-4">
                     <FormSpeechToText 
                         id={idSTT}
                         languages={languages} 
@@ -66,7 +66,7 @@ const Edit = ({
                         pruebas={pruebas}
                     />
                 </div>
-                <div className="col-sm mb-4 border border-right-0 p-4">
+                <div className="col-sm mb-4">
                     <FormTextToText 
                         id={idTTT}
                         languages={languages}
@@ -84,7 +84,7 @@ const Edit = ({
                         pruebas={pruebas}
                     />
                 </div>
-                <div className="col-sm mb-4 border p-4">
+                <div className="col-sm mb-4">
                     <FormTextToSpeech 
                         id={idTTS}
                         languages={languages}

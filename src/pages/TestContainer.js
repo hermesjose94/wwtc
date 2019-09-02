@@ -166,9 +166,17 @@ const TestContainer = () => {
     const handleChangeFile = e => {
         console.log("CARGAR FILE")
         var file = e.target.files[0]
+        var zone = document.getElementById("contentAudio")
+        var url = URL.createObjectURL(file)
+        var au = document.createElement('audio')
+        au.controls = true
+        au.src = url
+        zone.innerHTML='';
+        zone.appendChild(au)
         var reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onload = function () {
+            console.log(reader.result);
             setJsonSTT({
                 ...jsonSTT,"file" : reader.result.substring(22)
             })
@@ -242,19 +250,16 @@ const TestContainer = () => {
     }
 
     function createDownloadLink(blob) {
-        console.log(blob)
-        //var zone = document.getElementById("contentAudio")
-        //var url = URL.createObjectURL(blob)
-        //var au = document.createElement('audio')
-        //add controls to the <audio> element
-        //au.controls = true
-        //au.src = url
-        //zone.appendChild(au)
+        var zone = document.getElementById("contentAudio")
+        var url = URL.createObjectURL(blob)
+        var au = document.createElement('audio')
+        au.controls = true
+        au.src = url
+        zone.innerHTML='';
+        zone.appendChild(au)
         var reader = new FileReader()
         reader.readAsDataURL(blob)
         reader.onload = function () {
-            console.log("MIRAR AUDIOOOOO")
-            console.log(reader.result)
             setJsonSTT({
                 ...jsonSTT,"file" : reader.result.substring(22)
             })
@@ -262,6 +267,27 @@ const TestContainer = () => {
         reader.onerror = function (error) {
             console.log('Error: ', error)
         } 
+    }
+
+    const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
+        
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+          const slice = byteCharacters.slice(offset, offset + sliceSize);
+          
+          const byteNumbers = new Array(slice.length);
+          for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+          
+          const byteArray = new Uint8Array(byteNumbers);
+          
+          byteArrays.push(byteArray);
+        }
+        
+        const blob = new Blob(byteArrays, {type: contentType});
+        return blob;
     }
 
     const handleSubmitTTT = async e => {
@@ -289,9 +315,9 @@ const TestContainer = () => {
     }
 
     const handleSubmitTTS = async e => {
+        e.preventDefault()
         console.log("TTS")
         setLoading(true)
-        e.preventDefault()
         try {
             let headers = {
                 "Content-Type": "application/json",
@@ -304,14 +330,21 @@ const TestContainer = () => {
             }
             let res  = await fetch(`${Config.url}/apis/${idTTS}/test`, config)
             let data = await res.json()
-            console.log("entro")
             setLoading(false)
+            const contentType = 'audio/wav'
+            const b64Data = data.audio64
+            const blob = b64toBlob(b64Data, contentType)
+            var zone = document.getElementById("contentAudio2")
+            var url = URL.createObjectURL(blob)
+            var au = document.createElement('audio')
+            au.controls = true
+            au.src = url
+            zone.innerHTML=''
+            zone.appendChild(au)
         } catch (error) {
             console.log(error)
             setLoading(false)
-            /*if (error != "TypeError: Failed to fetch" || error != 'TypeError: "NetworkError when attempting to fetch resource." TestContainer.') {
-                setError(error)    
-            }*/
+            setError(error)  
         }
     }
 

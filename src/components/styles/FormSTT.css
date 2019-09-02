@@ -9,3 +9,41 @@
     color: #0056b3 !important;
     text-decoration: none !important;
 }
+
+.buttonBox.microphone:active{
+    background-color: #e02d1b !important;
+    border-radius: 50%;
+  }
+  
+  .buttonBox.microphone:active .form-group{
+    border-radius: 50%;
+    border-color: #000 !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    animation: flash infinite 2s;
+  }
+
+@-webkit-keyframes flash {
+    from,
+    50%,
+    to {
+        opacity: 1;
+    }
+    25%,
+    75% {
+        opacity: 0;
+    }
+}
+
+@keyframes flash {
+    from,
+    50%,
+    to {
+        opacity: 1;
+    }
+    25%,
+    75% {
+        opacity: 0;
+    }
+}
+  

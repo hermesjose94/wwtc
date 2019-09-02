@@ -108,6 +108,7 @@ const FormTest = ({
                     <h5 className="float-left">Not Results</h5>
                 )}                
             </div>
+            
             {arrayResult && 
                 <div className="col-12">
                     {form.translation_type ===  "Text to Text" || form.translation_type ===  "Speech to Text"  ? (
@@ -129,7 +130,7 @@ const FormTest = ({
                             </tbody>
                         </table>
                     ) : (
-                        <p>Audio download</p>
+                        <div className="col-12" id="contentAudio"></div>
                     )}                
                 </div>
             }

@@ -4,6 +4,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import Navigation from '../components/Navigation';
 import AddEndPoint from '../components/AddEndPoint';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
 
@@ -26,35 +27,40 @@ const Dashboard = ({data,columns}) => {
                 <div className="col-12 mb-4">
                     <AddEndPoint /> 
                 </div>
-                <div className="table-responsive col-12 mb-2">
-                    <ToolkitProvider
-                        bootstrap4
-                        keyField='id' 
-                        data={ data } 
-                        columns={ columns } 
-                        search
-                        >
-                        {
-                            props => (
-                            <div>
-                                <div className="row">
-                                    <div className="col-8">
-                                        <h2 className="float-left">APIs Dashboard</h2>   
+                <div className="card shadow col-12 mb-4">
+                    <div className="card-body">
+                        
+                        <div className="table-responsive">
+                            <ToolkitProvider
+                                bootstrap4
+                                keyField='id' 
+                                data={ data } 
+                                columns={ columns } 
+                                search
+                                >
+                                {
+                                    props => (
+                                    <div>
+                                        <div className="row">
+                                            <div className="col-8">
+                                                <h2 className="float-left">APIs Dashboard</h2>   
+                                            </div>
+                                            <div className="col-4 d-flex flex-row-reverse bd-highlight">
+                                                <SearchBar { ...props.searchProps } />
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <BootstrapTable
+                                            { ...props.baseProps }
+                                            defaultSorted={ defaultSorted }
+                                            pagination={ paginationFactory() }
+                                        />
                                     </div>
-                                    <div className="col-4">
-                                        <SearchBar { ...props.searchProps } />
-                                    </div>
-                                </div>
-                                <hr />
-                                <BootstrapTable
-                                    { ...props.baseProps }
-                                    defaultSorted={ defaultSorted }
-                                    pagination={ paginationFactory() }
-                                />
-                            </div>
-                            )
-                        }
-                    </ToolkitProvider>
+                                    )
+                                }
+                            </ToolkitProvider>
+                        </div>
+                    </div>  
                 </div>
             </div>
         </div>
