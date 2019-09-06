@@ -27,14 +27,26 @@ const LanguagesContainer = ({match}) => {
 
                 let res = await fetch(`${Config.url}/languages`,config)
                 let data = await res.json()
-                const items2 = []
+                var items2 = []
                 data.languages.map((element) => {
                     const item = { id: "", label: "" }
                     item.id = element.id
                     item.label = element.name
                     items2.push(item)
                 }) 
-                setItems(items2)                
+                setItems(items2) 
+                
+                let resE = await fetch(`${Config.url}/apis/${match.params.id}`,config)
+                let dataE = await resE.json()
+                var selectedItems2 = []
+                dataE.api.languages.map((element) => {
+                    const item = { id: "", label: "" }
+                    item.id = element.id
+                    item.label = element.name
+                    selectedItems2.push(item)
+                }) 
+                setSelectedItems(selectedItems2)
+                
                 setLoading(false)
             } catch (error) {
                 setLoading(false)
@@ -45,13 +57,10 @@ const LanguagesContainer = ({match}) => {
     },[])
 
     const handleChange =(selectedItems) =>{
-        console.log("Selecteds...")
         const ids = []
         selectedItems.map((element) => {
             ids.push(element.id)
         }) 
-        console.log(selectedItems)
-        console.log(ids)
         setLanguages(ids)
         setSelectedItems(selectedItems)
     }
@@ -60,8 +69,6 @@ const LanguagesContainer = ({match}) => {
         console.log("Send langauges")
         setLoading(true)
         const json = {"id_languages" : langauges}
-        console.log(json);
-
         try {
             let headers = {
                 "Content-Type": "application/json",
