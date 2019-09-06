@@ -8,17 +8,16 @@ const TestContainer = () => {
     
     const [ loading, setLoading ] = useState(true)
     const [ error, setError ] = useState(null)
-    const [ languages, setLanguages ] = useState()
     const [ endpoints, setEndpoints ] = useState()
     const [ providers ] = useState(
                                                 [
+                                                    {'name': 'BAIDU','code':'baidu'},
                                                     {'name': 'GOOGLE','code':'google'},
                                                     {'name': 'MICROSOFT','code':'microsoft'},
+                                                    {'name': 'READ SPEAKER','code':'ReadSpeaker'},
                                                     {'name': 'SDL','code':'SDL'},
                                                     {'name': 'SYSTRAN','code':'systran'},
-                                                    {'name': 'BAIDU','code':'baidu'},
                                                     {'name': 'YANDEX','code':'yandex'},
-                                                    {'name': 'READ SPEAKER','code':'ReadSpeaker'}
                                                 ]
                                             )
     const [ voices ] = useState(
@@ -29,6 +28,9 @@ const TestContainer = () => {
     const [ idTTT, setIdTTT ] = useState()
     const [ idTTS, setIdTTS ] = useState()
     const [ idSTT, setIdSTT ] = useState()
+    const [ languagesTTT, setLanguagesTTT ] = useState([])
+    const [ languagesTTS, setLanguagesTTS ] = useState([])
+    const [ languagesSTT, setLanguagesSTT ] = useState([])
     const [ resultTTT, setResultTTT ] = useState()
     const [ resultSTT, setResultSTT ] = useState()
     const [ jsonTTT,setJsonTTT ] = useState({
@@ -74,13 +76,13 @@ const TestContainer = () => {
                     headers:headers,
                 }
 
-                let res = await fetch(`${Config.url}/languages`,config)
-                let data = await res.json()
-                setLanguages(data.languages)
+                //let res = await fetch(`${Config.url}/languages`,config)
+                //let data = await res.json()
+                //setLanguages(data.languages)
 
-                let res2 = await fetch(`${Config.url}/apis`)
-                let data2 = await res2.json()
-                setEndpoints(data2.apis)
+                let res = await fetch(`${Config.url}/apis`)
+                let data = await res.json()
+                setEndpoints(data.apis)
                 
                 setLoading(false)
             } catch (error) {
@@ -93,13 +95,18 @@ const TestContainer = () => {
 
     const selectEndpoint = e => {
         var id = parseInt(e.target.value)
-        
+        var endpoint  = endpoints.filter((element) =>{
+            return element.id === id
+        })
         if (e.target.dataset.type === "TTT"){
             setIdTTT(id)
+            setLanguagesTTT(endpoint[0].languages)
         }else if (e.target.dataset.type === "TTS"){
             setIdTTS(id)
+            setLanguagesTTS(endpoint[0].languages)
         }else if (e.target.dataset.type === "STT"){
             setIdSTT(id)
+            setLanguagesSTT(endpoint[0].languages)
         }
         
     }
@@ -193,6 +200,9 @@ const TestContainer = () => {
     const buttonCopyTTT = e => {
         console.log("Copiar TTT")
         var textarea = document.getElementById("CopyTTT")
+        setJsonTTS({
+            ...jsonTTS,"text" : textarea.value
+        })
         textarea.select()
         try {
             var successful = document.execCommand('copy')
@@ -206,6 +216,9 @@ const TestContainer = () => {
     const buttonCopySTT = e => {
         console.log("Copiar STT")
         var textarea = document.getElementById("CopySTT")
+        setJsonTTT({
+            ...jsonTTT,"Text" : textarea.value
+        })
         textarea.select()
         try {
             var successful = document.execCommand('copy')
@@ -392,7 +405,9 @@ const TestContainer = () => {
 
     return (
         <Test
-            languages={languages}
+            languagesTTT={languagesTTT}
+            languagesTTS={languagesTTS}
+            languagesSTT={languagesSTT}
             providers={providers}
             voices={voices}
             endpoints={endpoints}

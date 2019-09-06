@@ -88,6 +88,7 @@ const DashboardContainer = ({history}) => {
     function buttonFormatter(cell, row, rowIndex, formatExtraData) { 
         const ruta = "/edit/"+row.id
         const ruta2 = "/admin/test/"+row.id
+        const ruta3 = "/languages/"+row.id
         const id = row.id
         return ( 
             < div 
@@ -101,6 +102,7 @@ const DashboardContainer = ({history}) => {
                     id={id}
                     ruta={ruta}
                     ruta2={ruta2}
+                    ruta3={ruta3}
                     onClick={handleDeleteApi}
                 />
             </div> 

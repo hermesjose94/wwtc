@@ -74,7 +74,7 @@ const FormTextToSpeech = ({
                                         data-type="TTS"
                                         onChange={fromLanguage}
                                     >
-                                        <option value="">Select language</option>
+                                        <option value="">Select Language</option>
                                         {
                                             languages && languages.map((element,i) => 
                                                 <option value={element.code} key={element.id}>{element.name}</option>
@@ -120,7 +120,7 @@ const FormTextToSpeech = ({
                             ) : (
                                 <button type="button" className="btn btn-dark d-none" onClick={pruebas}>Prueba Json</button>
                             )}
-                            <button type="submit" className="btn btn-primary float-right">SEND</button>
+                            <button type="submit" className="btn btn-primary float-right">EXECUTE</button>
                         </div> 
                     </form>
                 </div>

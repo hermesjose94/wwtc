@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Dashboard from '../pages/DashboardContainer'
 import Create from '../pages/CreateContainer'
 import Edit from '../pages/EditContainer'
+import Languages from '../pages/LanguagesContainer'
 import Test from '../pages/TestContainer'
 import TestAdmin from '../pages/TestAdminContainer'
 import NotFound from '../pages/404'
@@ -16,6 +17,7 @@ const App = () =>(
             <Route path="/edit/:id" exact component={Edit}/>
             <Route path="/test" exact component={Test}/>
             <Route path="/admin/test/:id" exact component={TestAdmin}/>
+            <Route path="/languages/:id" exact component={Languages}/>
             <Route component={NotFound}/>
         </Switch>
     </BrowserRouter>

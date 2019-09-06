@@ -6,6 +6,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.22",
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "@kenshooui/react-multi-select": "^1.1.5",
     "axios": "^0.19.0",
     "react": "^16.9.0",
     "react-bootstrap-table-next": "^3.1.8",
@@ -15,7 +16,8 @@
     "react-bootstrap-table2-toolkit": "^2.0.1",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.1.1"
+    "react-scripts": "3.1.1",
+    "yarm": "^0.4.0"
   },
   "scripts": {
     "start": "react-scripts start",

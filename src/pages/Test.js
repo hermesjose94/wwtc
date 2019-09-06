@@ -8,7 +8,9 @@ import FormSpeechToText from '../components/FormSpeechToText';
 
 
 const Edit = ({
-    languages,
+    languagesTTT,
+    languagesTTS,
+    languagesSTT,
     providers,
     voices,
     endpoints,
@@ -49,7 +51,7 @@ const Edit = ({
                 <div className="col-sm mb-4">
                     <FormSpeechToText 
                         id={idSTT}
-                        languages={languages} 
+                        languages={languagesSTT} 
                         providers={providers}
                         endpoints={endpoints}   
                         json={jsonSTT}
@@ -69,7 +71,7 @@ const Edit = ({
                 <div className="col-sm mb-4">
                     <FormTextToText 
                         id={idTTT}
-                        languages={languages}
+                        languages={languagesTTT}
                         providers={providers}
                         endpoints={endpoints}
                         json={jsonTTT}
@@ -87,7 +89,7 @@ const Edit = ({
                 <div className="col-sm mb-4">
                     <FormTextToSpeech 
                         id={idTTS}
-                        languages={languages}
+                        languages={languagesTTS}
                         providers={providers}
                         voices={voices}
                         endpoints={endpoints}
