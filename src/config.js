@@ -1,4 +1,3 @@
-const url = 'http://apitester.nelumbo.com.co/api'
+const url = 'https://apitester.worldwidetechconnections.com/api'
 const prueba = false
 export default {url,prueba}
-

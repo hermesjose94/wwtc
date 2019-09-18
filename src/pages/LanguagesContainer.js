@@ -31,7 +31,7 @@ const LanguagesContainer = ({match}) => {
                 data.languages.map((element) => {
                     const item = { id: "", label: "" }
                     item.id = element.id
-                    item.label = element.name
+                    item.label = element.name + " - (" + element.code + ")"
                     items2.push(item)
                 }) 
                 setItems(items2) 
@@ -42,7 +42,7 @@ const LanguagesContainer = ({match}) => {
                 dataE.api.languages.map((element) => {
                     const item = { id: "", label: "" }
                     item.id = element.id
-                    item.label = element.name
+                    item.label = element.name + " - (" + element.code + ")"
                     selectedItems2.push(item)
                 }) 
                 setSelectedItems(selectedItems2)

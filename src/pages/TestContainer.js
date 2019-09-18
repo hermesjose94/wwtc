@@ -9,17 +9,7 @@ const TestContainer = () => {
     const [ loading, setLoading ] = useState(true)
     const [ error, setError ] = useState(null)
     const [ endpoints, setEndpoints ] = useState()
-    const [ providers ] = useState(
-                                                [
-                                                    {'name': 'BAIDU','code':'baidu'},
-                                                    {'name': 'GOOGLE','code':'google'},
-                                                    {'name': 'MICROSOFT','code':'microsoft'},
-                                                    {'name': 'READ SPEAKER','code':'ReadSpeaker'},
-                                                    {'name': 'SDL','code':'SDL'},
-                                                    {'name': 'SYSTRAN','code':'systran'},
-                                                    {'name': 'YANDEX','code':'yandex'},
-                                                ]
-                                            )
+   
     const [ voices ] = useState(
                                             [
                                                 {'name': 'HUI','code':'hui'},
@@ -76,10 +66,6 @@ const TestContainer = () => {
                     headers:headers,
                 }
 
-                //let res = await fetch(`${Config.url}/languages`,config)
-                //let data = await res.json()
-                //setLanguages(data.languages)
-
                 let res = await fetch(`${Config.url}/apis`)
                 let data = await res.json()
                 setEndpoints(data.apis)
@@ -98,33 +84,31 @@ const TestContainer = () => {
         var endpoint  = endpoints.filter((element) =>{
             return element.id === id
         })
+        var param = JSON.parse(endpoint[0].url_param);
+        var vendor = param.filter((element) =>{
+            return element.name_param === "vendor"
+        })
+        
         if (e.target.dataset.type === "TTT"){
             setIdTTT(id)
             setLanguagesTTT(endpoint[0].languages)
+            setJsonTTT({
+                ...jsonTTT,"vendor" : vendor[0].value
+            })
         }else if (e.target.dataset.type === "TTS"){
             setIdTTS(id)
             setLanguagesTTS(endpoint[0].languages)
+            setJsonTTS({
+                ...jsonTTS,"vendor" : vendor[0].value
+            })
         }else if (e.target.dataset.type === "STT"){
             setIdSTT(id)
             setLanguagesSTT(endpoint[0].languages)
+            setJsonSTT({
+                ...jsonSTT,"vendor" : vendor[0].value
+            })
         }
         
-    }
-
-    const selectProvider = e =>{
-        if (e.target.dataset.type === "TTT"){
-            setJsonTTT({
-                ...jsonTTT,"vendor" : e.target.value
-            })
-        }else if (e.target.dataset.type === "TTS"){
-            setJsonTTS({
-                ...jsonTTS,"vendor" : e.target.value
-            })
-        }else if (e.target.dataset.type === "STT"){
-            setJsonSTT({
-                ...jsonSTT,"vendor" : e.target.value
-            })
-        }
     }
 
     const fromLanguage = e =>{
@@ -408,7 +392,6 @@ const TestContainer = () => {
             languagesTTT={languagesTTT}
             languagesTTS={languagesTTS}
             languagesSTT={languagesSTT}
-            providers={providers}
             voices={voices}
             endpoints={endpoints}
             idTTT={idTTT}
@@ -420,7 +403,6 @@ const TestContainer = () => {
             jsonSTT={jsonSTT}
             resultSTT={resultSTT}
             selectEndpoint={selectEndpoint}
-            selectProvider={selectProvider}
             fromLanguage={fromLanguage}
             toLanguage={toLanguage}
             handleChangeVoice={handleChangeVoice}

@@ -11,7 +11,6 @@ const Edit = ({
     languagesTTT,
     languagesTTS,
     languagesSTT,
-    providers,
     voices,
     endpoints,
     idTTT,
@@ -23,7 +22,6 @@ const Edit = ({
     jsonSTT,
     resultSTT,
     selectEndpoint,
-    selectProvider,
     fromLanguage,
     toLanguage,
     handleChangeVoice,
@@ -52,12 +50,10 @@ const Edit = ({
                     <FormSpeechToText 
                         id={idSTT}
                         languages={languagesSTT} 
-                        providers={providers}
                         endpoints={endpoints}   
                         json={jsonSTT}
                         result={resultSTT}
                         selectEndpoint={selectEndpoint}
-                        selectProvider={selectProvider}
                         fromLanguage={fromLanguage}
                         handleChangeFile={handleChangeFile}
                         handleButtonFile={handleButtonFile}
@@ -72,12 +68,10 @@ const Edit = ({
                     <FormTextToText 
                         id={idTTT}
                         languages={languagesTTT}
-                        providers={providers}
                         endpoints={endpoints}
                         json={jsonTTT}
                         result={resultTTT}
                         selectEndpoint={selectEndpoint}
-                        selectProvider={selectProvider}
                         fromLanguage={fromLanguage}
                         toLanguage={toLanguage}
                         ChangeText={ChangeText}
@@ -90,12 +84,10 @@ const Edit = ({
                     <FormTextToSpeech 
                         id={idTTS}
                         languages={languagesTTS}
-                        providers={providers}
                         voices={voices}
                         endpoints={endpoints}
                         json={jsonTTS}
                         selectEndpoint={selectEndpoint}
-                        selectProvider={selectProvider}
                         fromLanguage={fromLanguage}
                         handleChangeVoice={handleChangeVoice}
                         ChangeText={ChangeText}

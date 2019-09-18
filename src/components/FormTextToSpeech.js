@@ -5,11 +5,9 @@ const FormTextToSpeech = ({
     id,
     languages,
     endpoints,
-    providers,
     voices,
     json,
     selectEndpoint,
-    selectProvider,
     fromLanguage,
     handleChangeVoice,
     ChangeText,
@@ -46,23 +44,6 @@ const FormTextToSpeech = ({
                                             <option value={element.id} key={element.id}>{element.name}</option>
                                         )
                                     }
-                                </select>
-                            </div>
-                        </div>
-                        <div className="col-12">
-                            <div className="form-group">
-                                <select 
-                                    className="form-control"
-                                    value={json.vendor}
-                                    data-type="TTS"
-                                    onChange={selectProvider}
-                                >
-                                    <option>Select Provider</option>
-                                    {
-                                        providers && providers.map((element,i) => 
-                                            <option value={element.code} key={element.code}>{element.name}</option>
-                                        )
-                                    }    
                                 </select>
                             </div>
                         </div>
