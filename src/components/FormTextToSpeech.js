@@ -49,19 +49,30 @@ const FormTextToSpeech = ({
                         </div>
                         <div className="col-12">
                             <div className="form-group">
-                                <select 
+                                {languages.length > 0 ? (
+                                    <select 
+                                            className="form-control"
+                                            value={json.sourcelanguage}
+                                            data-type="TTS"
+                                            onChange={fromLanguage}
+                                        >
+                                            <option value="">Select Language</option>
+                                            {
+                                                languages && languages.map((element,i) => 
+                                                    <option value={element.code} key={element.id}>{element.name}</option>
+                                                )
+                                            }
+                                    </select>
+                                ) : (
+                                    <input 
+                                        type="text"
                                         className="form-control"
+                                        placeholder="Language"
                                         value={json.sourcelanguage}
                                         data-type="TTS"
                                         onChange={fromLanguage}
-                                    >
-                                        <option value="">Select Language</option>
-                                        {
-                                            languages && languages.map((element,i) => 
-                                                <option value={element.code} key={element.id}>{element.name}</option>
-                                            )
-                                        }
-                                    </select>
+                                    />
+                                )}
                             </div>
                         </div>
                         <div className="col-12">

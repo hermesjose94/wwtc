@@ -53,19 +53,30 @@ const FormTextToText = ({
                                     From: <FontAwesomeIcon icon={faFlag} />
                                 </label>
                                 <div className="col-sm-8">
-                                    <select 
-                                        className="form-control"
-                                        value={json.sourceLanguage}
-                                        data-type="TTT"
-                                        onChange={fromLanguage}
-                                    >
-                                        <option value="">Select Language</option>
-                                        {
-                                            languages && languages.map((element,i) => 
-                                                <option value={element.code} key={element.id}>{element.name}</option>
-                                            )
-                                        }
-                                    </select>
+                                    {languages.length > 0 ? (
+                                        <select 
+                                            className="form-control"
+                                            value={json.sourceLanguage}
+                                            data-type="TTT"
+                                            onChange={fromLanguage}
+                                        >
+                                            <option value="">Select Language</option>
+                                            {
+                                                languages && languages.map((element,i) => 
+                                                    <option value={element.code} key={element.id}>{element.name}</option>
+                                                )
+                                            }
+                                        </select>
+                                    ) : (
+                                        <input 
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Language"
+                                            value={json.sourceLanguage}
+                                            data-type="TTT"
+                                            onChange={fromLanguage}
+                                        />
+                                    )}
                                 </div>
                             </div>
                         </div>
