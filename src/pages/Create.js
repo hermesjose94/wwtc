@@ -4,6 +4,7 @@ import Breadcrumb from '../components/Breadcrumb'
 import FormEndpoint from '../components/FormEndpoint'
 
 const Create = ({
+    endpoints,
     arrayHeader,
     arrayBody,
     arrayUrl,
@@ -36,6 +37,7 @@ const Create = ({
                         <div className="col-12 mb-4">
                             <FormEndpoint
                                 action="Add"
+                                endpoints={endpoints}
                                 arrayHeader={arrayHeader}
                                 arrayBody={arrayBody}
                                 arrayUrl={arrayUrl}

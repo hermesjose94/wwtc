@@ -45,7 +45,7 @@ const FormSpeechToText = ({
                                 data-type="STT"
                                 onChange={selectEndpoint}
                             >   
-                                <option>Select Endpoint</option>
+                                <option>Select Providers</option>
                                 {
                                     array && array.map((element,i) => 
                                         <option value={element.id} key={element.id}>{element.name}</option>
@@ -66,7 +66,7 @@ const FormSpeechToText = ({
                                     <option value="">Select Language</option>
                                     {
                                         languages && languages.map((element,i) => 
-                                            <option value={element.code} key={element.id}>{element.name}</option>
+                                            <option value={element.code} key={"TTS-"+i+"-"+element.id}>{element.name}</option>
                                         )
                                     }
                                 </select>
@@ -141,7 +141,7 @@ const FormSpeechToText = ({
                         ) : (
                             <button type="button" className="btn btn-dark d-none" onClick={pruebas}>Prueba Json</button>
                         )}
-                        <button type="submit" className="btn btn-primary float-right">EXECUTE</button>
+                        <button type="submit" className="btn btn-primary float-right">SEND</button>
                     </div> 
                 </form>
             </div>

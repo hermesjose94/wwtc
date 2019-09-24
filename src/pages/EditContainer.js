@@ -10,6 +10,7 @@ const EditContainer = ({history,match}) => {
     const [ posHeader, setPosHeader ] = useState(0)
     const [ posBody, setPosBody ]     = useState(0)
     const [ posUrl, setPosUrl ]       = useState(0)
+    const [ endpoints, setEndpoints ] = useState()
 
     const [ arrayHeader, setArrayHeader ] = useState(
         [
@@ -108,6 +109,32 @@ const EditContainer = ({history,match}) => {
         "description": null,
         "output": null,
     })
+
+    useEffect(() =>{
+        const fetchResource = async () => {
+            try {
+                let headers = {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                }
+
+                let config ={
+                    method: 'GET',
+                    headers:headers,
+                }
+
+                let res = await fetch(`${Config.url}/apis?type=Token`,config)
+                let data = await res.json()
+                
+                setEndpoints(data.apis)
+                setLoading(false)
+            } catch (error) {
+                setLoading(false)
+                setError(error)
+            }
+        }
+        fetchResource()
+    },[])
 
     useEffect(() =>{
         const fetchResource = async () => {
@@ -313,6 +340,7 @@ const EditContainer = ({history,match}) => {
 
     return (        
             <Edit 
+                endpoints={endpoints}
                 arrayHeader={arrayHeader}
                 arrayBody={arrayBody}
                 arrayUrl={arrayUrl}

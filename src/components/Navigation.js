@@ -21,6 +21,11 @@ const Navigation = ({menu}) =>{
                         </Link>
                     </span>
                     <span className="nav-item">
+                        <Link className={menu === "3" ? 'active nav-link' : 'nav-link'} to="/tokens">
+                            Tokens
+                        </Link>
+                    </span>
+                    <span className="nav-item">
                         <Link className={menu === "1" ? 'active nav-link' : 'nav-link'} to="/">
                             Dashboard
                         </Link>

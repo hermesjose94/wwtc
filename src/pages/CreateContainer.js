@@ -5,11 +5,12 @@ import FatalError from './500'
 import Config from '../config'
 
 const CreateContainer = ({history}) => {
-    const [ loading, setLoading ] = useState(false)
+    const [ loading, setLoading ] = useState(true)
     const [ error, setError ] = useState(null)
     const [ posHeader, setPosHeader ] = useState(0)
     const [ posBody, setPosBody ]     = useState(0)
     const [ posUrl, setPosUrl ]       = useState(0)
+    const [ endpoints, setEndpoints ] = useState()
 
     const [ arrayHeader, setArrayHeader ] = useState(
         [
@@ -20,6 +21,32 @@ const CreateContainer = ({history}) => {
             },
         ]
     )
+
+    useEffect(() =>{
+        const fetchResource = async () => {
+            try {
+                let headers = {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                }
+
+                let config ={
+                    method: 'GET',
+                    headers:headers,
+                }
+
+                let res = await fetch(`${Config.url}/apis?type=Token`,config)
+                let data = await res.json()
+                
+                setEndpoints(data.apis)
+                setLoading(false)
+            } catch (error) {
+                setLoading(false)
+                setError(error)
+            }
+        }
+        fetchResource()
+    },[])
 
     useEffect(() => {    
         if (arrayHeader.length > 0) {
@@ -90,6 +117,7 @@ const CreateContainer = ({history}) => {
             "body": null,
             "description": null,
             "output": null,
+            "id_api_token":"",
         }
     )
 
@@ -268,6 +296,7 @@ const CreateContainer = ({history}) => {
 
     return (        
             <Create 
+                endpoints={endpoints}
                 arrayHeader={arrayHeader}
                 arrayBody={arrayBody}
                 arrayUrl={arrayUrl}

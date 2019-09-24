@@ -5,6 +5,7 @@ import Config from '../config'
 
 const FormEndpoint = ({
     action,
+    endpoints,
     arrayHeader,
     arrayBody,
     arrayUrl,
@@ -23,7 +24,6 @@ const FormEndpoint = ({
     handleSubmit,
     pruebas
 }) => {
-
     return(
         <form onSubmit={handleSubmit}>
             <div className="row">
@@ -60,16 +60,17 @@ const FormEndpoint = ({
                 <div className="col-lg-4 col-md-4">
                     <div className="form-group">
                         <select 
-                        className="form-control" 
-                        name="translation_type" 
-                        required="required"
-                        value={form.translation_type}
-                        onChange={handleChange}
+                            className="form-control" 
+                            name="translation_type" 
+                            required="required"
+                            value={form.translation_type}
+                            onChange={handleChange}
                         >
                             <option value="">Type</option>
                             <option value="Text to Text">TEXT TO TEXT</option>
                             <option value="Speech to Text">SPEECH TO TEXT</option>
                             <option value="Text to Speech">TEXT TO SPEECH</option>
+                            <option value="Token">TOKEN</option>
                         </select>
                     </div>
                 </div>  
@@ -84,6 +85,37 @@ const FormEndpoint = ({
                                 value={form.url}
                                 onChange={handleChange}
                         />
+                    </div>
+                </div>  
+                <div className="col-12">
+                    <div className="form-group">
+                        <select 
+                            className="form-control" 
+                            name="id_api_token" 
+                            value={form.id_api_token || ''}
+                            onChange={handleChange}
+                            >
+                                <option value="">Select Token</option>
+                                {
+                                    endpoints && endpoints.map((element) => 
+                                        <option value={element.id} key={element.id}>{element.name}</option>
+                                    )
+                                }
+                        </select>
+                    </div>
+                </div>  
+                <div className="col-12">
+                    <div className="form-group">
+                        <select 
+                            className="form-control" 
+                            name="body" 
+                            value={form.body || ''}
+                            onChange={handleChange} 
+                            >
+                                <option value="">Select Type Body</option>
+                                <option value="json">JSON</option>
+                                <option value="xml1">XML MicrosoftTTS</option>
+                        </select>
                     </div>
                 </div>  
                 <div className="col-12">

@@ -38,7 +38,7 @@ const FormTextToText = ({
                                     data-type="TTT"
                                     onChange={selectEndpoint}
                                 >   
-                                    <option>Select Endpoint</option>
+                                    <option>Select Providers</option>
                                     {
                                         array && array.map((element,i) => 
                                             <option value={element.id} key={element.id}>{element.name}</option>
@@ -63,7 +63,7 @@ const FormTextToText = ({
                                             <option value="">Select Language</option>
                                             {
                                                 languages && languages.map((element,i) => 
-                                                    <option value={element.code} key={element.id}>{element.name}</option>
+                                                    <option value={element.code} key={"TTT_F-"+i+"-"+element.id}>{element.name}</option>
                                                 )
                                             }
                                         </select>
@@ -98,19 +98,30 @@ const FormTextToText = ({
                                     To: <FontAwesomeIcon icon={faFlag} />
                                 </label>
                                 <div className="col-sm-8">
-                                    <select 
-                                        className="form-control"
-                                        data-type="TTT"
-                                        value={json.targetLanguage}
-                                        onChange={toLanguage}
-                                    >
-                                        <option value="">Select Language</option>
-                                        {
-                                            languages && languages.map((element,i) => 
-                                                <option value={element.code} key={element.id}>{element.name}</option>
-                                            )
-                                        }
-                                    </select>
+                                    {languages.length > 0 ? (
+                                            <select 
+                                                className="form-control"
+                                                data-type="TTT"
+                                                value={json.targetLanguage}
+                                                onChange={toLanguage}
+                                            >
+                                                <option value="">Select Language</option>
+                                                {
+                                                    languages && languages.map((element,i) => 
+                                                        <option value={element.code} key={"TTT_T-"+i+"-"+element.id}>{element.name}</option>
+                                                    )
+                                                }
+                                            </select>
+                                        ) : (
+                                            <input 
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Language"
+                                                data-type="TTT"
+                                                value={json.targetLanguage}
+                                                onChange={toLanguage}
+                                            />
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -139,7 +150,7 @@ const FormTextToText = ({
                             ) : (
                                 <button type="button" className="btn btn-dark d-none" onClick={pruebas}>Prueba Json</button>
                             )}
-                            <button type="submit" className="btn btn-primary float-right">EXECUTE</button>
+                            <button type="submit" className="btn btn-primary float-right">SEND</button>
                         </div> 
                     </form>
                 </div>

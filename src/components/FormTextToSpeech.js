@@ -38,7 +38,7 @@ const FormTextToSpeech = ({
                                     data-type="TTS"
                                     onChange={selectEndpoint}
                                 >   
-                                    <option>Select Endpoint</option>
+                                    <option>Select Providers</option>
                                     {
                                         array && array.map((element,i) => 
                                             <option value={element.id} key={element.id}>{element.name}</option>
@@ -59,7 +59,7 @@ const FormTextToSpeech = ({
                                             <option value="">Select Language</option>
                                             {
                                                 languages && languages.map((element,i) => 
-                                                    <option value={element.code} key={element.id}>{element.name}</option>
+                                                    <option value={element.code} key={"TTS-"+i+"-"+element.id}>{element.name}</option>
                                                 )
                                             }
                                     </select>
@@ -79,14 +79,14 @@ const FormTextToSpeech = ({
                             <div className="form-group">
                                 <select 
                                     className="form-control"
-                                    value={json.voice}
+                                    value={json.id_voice}
                                     data-type="TTS"
                                     onChange={handleChangeVoice}
                                 >
                                     <option>Select Voice</option>
                                     {
                                         voices && voices.map((element,i) => 
-                                            <option value={element.code} key={element.code}>{element.name}</option>
+                                            <option value={element.id} key={"TTSV-"+element.id}>{element.name}</option>
                                         )
                                     }
                                 </select>
@@ -112,7 +112,7 @@ const FormTextToSpeech = ({
                             ) : (
                                 <button type="button" className="btn btn-dark d-none" onClick={pruebas}>Prueba Json</button>
                             )}
-                            <button type="submit" className="btn btn-primary float-right">EXECUTE</button>
+                            <button type="submit" className="btn btn-primary float-right">SEND</button>
                         </div> 
                     </form>
                 </div>

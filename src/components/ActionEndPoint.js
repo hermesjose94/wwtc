@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrashAlt , faPencilAlt, faEye, faLanguage  } from "@fortawesome/free-solid-svg-icons"
 
-const ActionEndPoint = ({id,ruta,ruta2,ruta3,onClick}) => (
+const ActionEndPoint = ({id,ruta,ruta2,ruta3,onClick,token}) => (
     <div className="d-flex justify-content-center">        
         <div className="bd-highlight p-1">
             <Link to={ruta} className="btn btn-warning">
@@ -19,16 +19,20 @@ const ActionEndPoint = ({id,ruta,ruta2,ruta3,onClick}) => (
                 <FontAwesomeIcon icon={faTrashAlt} />
             </button>  
         </div>
-        <div className="bd-highlight p-1">
-            <Link to={ruta2} className="btn btn-primary">
-                <FontAwesomeIcon icon={faEye} />
-            </Link>    
-        </div>
+        {token ==false &&
+            <div className="bd-highlight p-1">
+                <Link to={ruta2} className="btn btn-primary">
+                    <FontAwesomeIcon icon={faEye} />
+                </Link>    
+            </div>
+        }
+        {token ==false &&
         <div className="bd-highlight p-1">
             <Link to={ruta3} className="btn btn-info">
                 <FontAwesomeIcon icon={faLanguage} />
             </Link>    
         </div>
+        }
     </div>
 )
 

@@ -1,3 +1,3 @@
 const url = 'https://apitester.worldwidetechconnections.com/api'
-const prueba = false
+const prueba = true
 export default {url,prueba}

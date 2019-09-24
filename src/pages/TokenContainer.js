@@ -1,18 +1,18 @@
 import React,{ useState, useEffect } from 'react'
 import Config from '../config'
 import ActionEndPoint from '../components/ActionEndPoint'
-import Dashboard from './Dashboard'
+import Token from './Token'
 import Loading from '../components/Loading'
 import FatalError from './500'
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css'
 import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css'
 
-const DashboardContainer = ({history}) => {
+const TokenContainer = ({history}) => {
     const [ data, setData ] = useState([])
     const [ loading, setLoading ] = useState(true)
     const [ error, setError ] = useState(null)
-    const token = false;
-    
+    const token = true;
+
     const columns = [
         {
             dataField: 'name',
@@ -40,7 +40,7 @@ const DashboardContainer = ({history}) => {
     useEffect(() =>{
         const fetchResource = async () => {
             try {
-                let res = await fetch(`${Config.url}/apis?type=no-token`)
+                let res = await fetch(`${Config.url}/apis?type=Token`)
                 let data = await res.json()
                 
                 setData(data.apis)
@@ -117,10 +117,10 @@ const DashboardContainer = ({history}) => {
     if(error)
         return <FatalError />    
 
-    return <Dashboard 
+    return <Token 
                 data={data}
                 columns={columns}
             />
 }
 
-export default DashboardContainer
+export default TokenContainer
