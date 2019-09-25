@@ -66,7 +66,7 @@ const FormSpeechToText = ({
                                     <option value="">Select Language</option>
                                     {
                                         languages && languages.map((element,i) => 
-                                            <option value={element.code} key={"TTS-"+i+"-"+element.id}>{element.name}</option>
+                                            <option value={element.code} key={"TTS-"+i+"-"+element.id}>{element.name +"( "+element.code+" )"}</option>
                                         )
                                     }
                                 </select>

@@ -63,7 +63,7 @@ const FormTextToText = ({
                                             <option value="">Select Language</option>
                                             {
                                                 languages && languages.map((element,i) => 
-                                                    <option value={element.code} key={"TTT_F-"+i+"-"+element.id}>{element.name}</option>
+                                                    <option value={element.code} key={"TTT_F-"+i+"-"+element.id}>{element.name +"( "+element.code+" )"}</option>
                                                 )
                                             }
                                         </select>
@@ -108,7 +108,7 @@ const FormTextToText = ({
                                                 <option value="">Select Language</option>
                                                 {
                                                     languages && languages.map((element,i) => 
-                                                        <option value={element.code} key={"TTT_T-"+i+"-"+element.id}>{element.name}</option>
+                                                        <option value={element.code} key={"TTT_T-"+i+"-"+element.id}>{element.name +"( "+element.code+" )"}</option>
                                                     )
                                                 }
                                             </select>

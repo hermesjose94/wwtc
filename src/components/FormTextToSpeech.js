@@ -18,7 +18,6 @@ const FormTextToSpeech = ({
         var array = endpoints.filter(function (pilot) {
             return pilot.translation_type === "Text to Speech"
         })
-        console.log(json);
         
         return(
             <div className="card shadow">
@@ -59,7 +58,7 @@ const FormTextToSpeech = ({
                                             <option value="">Select Language</option>
                                             {
                                                 languages && languages.map((element,i) => 
-                                                    <option value={element.code} key={"TTS-"+i+"-"+element.id}>{element.name}</option>
+                                                    <option value={element.code} key={"TTS-"+i+"-"+element.id}>{element.name +"( "+element.code+" )"}</option>
                                                 )
                                             }
                                     </select>

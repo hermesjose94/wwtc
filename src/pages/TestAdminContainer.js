@@ -74,7 +74,9 @@ const TestAdminContainer = ({ history,match }) =>{
                 reader.onload = function () {
                     var result={}
                     Object.keys(json).forEach((key) => result[key] = json[key])
-                    result["file"] = reader.result.substring(22)
+                    result["file"]   = reader.result.substring(22)
+                    result["Source"] = reader.result.substring(22)
+                    result["source"] = reader.result.substring(22)
                     setJson(result)
                 }
                 reader.onerror = function (error) {
@@ -101,6 +103,9 @@ const TestAdminContainer = ({ history,match }) =>{
             Object.keys(json).forEach((key) => result[key] = json[key])
             Object.keys(datos).forEach((key) => result[key] = datos[key])
             setJson(result)
+            console.log("mirar");
+            console.log(result);
+            
         }
         genereJson()
     },[arrayBody])
