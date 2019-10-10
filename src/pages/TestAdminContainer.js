@@ -77,6 +77,7 @@ const TestAdminContainer = ({ history,match }) =>{
                     result["file"]   = reader.result.substring(22)
                     result["Source"] = reader.result.substring(22)
                     result["source"] = reader.result.substring(22)
+                    result["audio_url"] = reader.result.substring(22)
                     setJson(result)
                 }
                 reader.onerror = function (error) {
@@ -207,6 +208,8 @@ const TestAdminContainer = ({ history,match }) =>{
             }
             let res  = await fetch(`${Config.url}/apis/${match.params.id}/test`, config)
             let data = await res.json()
+            console.log("RESPUESTA");
+            console.log(data);
             setLoading(false)
             if (form.translation_type === "Text to Text" || form.translation_type === "Speech to Text") {
                 setArrayResult(data)    

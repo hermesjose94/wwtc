@@ -118,6 +118,7 @@ const CreateContainer = ({history}) => {
             "description": null,
             "output": null,
             "id_api_token":"",
+            "type_file":"",
         }
     )
 

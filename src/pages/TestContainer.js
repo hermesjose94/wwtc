@@ -3,9 +3,11 @@ import Loading from '../components/Loading'
 import FatalError from './500'
 import Config from '../config'
 import Test from './Test'
+import { useAlert } from "react-alert"
 
 const TestContainer = () => {
-    
+
+    const alert = useAlert()
     const [ loading, setLoading ] = useState(true)
     const [ error, setError ] = useState(null)
     const [ endpoints, setEndpoints ] = useState()
@@ -1351,22 +1353,22 @@ const TestContainer = () => {
                                         'Text':'',
                                         'sourceLanguage':'',
                                         'targetLanguage':'',
-                                        'vendor':'',
-                                        'domain': 'it'
                                     })
     const [ jsonTTS,setJsonTTS ] = useState({
                                         'text':'',
+                                        'lang':'',
                                         'sourcelanguage':'',
                                         'voice':'',
-                                        'vendor':'',
                                         'voice_gender':'',
                                         'voice_name':'',
-                                        'id_voice':''
+                                        'id_voice':'',
+                                        'vendor':'',
                                     })
     const [ jsonSTT,setJsonSTT ] = useState({
                                         'file':'',
                                         'Source':'',
                                         'source':'',
+                                        'audio_url':'',
                                         'sourceLanguage':'',
                                         'vendor':''
                                     })
@@ -1410,41 +1412,57 @@ const TestContainer = () => {
 
     const selectEndpoint = e => {
         var id = parseInt(e.target.value)
-        console.log(id);
+        console.log(id)
         if (id) {
             var endpoint  = endpoints.filter((element) =>{
                 return element.id === id
             })
-            var param = JSON.parse(endpoint[0].url_param);
+            var param = JSON.parse(endpoint[0].url_param)
+        }
+        if (e.target.dataset.type === "TTT"){
+            var json = jsonTTT
+        }
+        if (e.target.dataset.type === "TTS"){
+            var json = jsonTTS
+        }
+        if (e.target.dataset.type === "STT"){
+            var json = jsonSTT
         }
         if (param) {
-            var vendorVal
-            var vendor = param.filter((element) =>{
-                return element.name_param === "vendor"
+            Object.keys(param).forEach((key) => {    
+                if (param[key].type === "STATIC") {
+                    json[param[key].name_param] = param[key].value
+                }
             })
-            vendorVal =  vendor[0].value
-        }else{
-            vendorVal =  ''
-        }   
-
+        }
         if (e.target.dataset.type === "TTT"){
+            json['Text'] = ''
+            json['sourceLanguage'] = ''
+            json['targetLanguage'] = ''
             setIdTTT(id)
             setLanguagesTTT(endpoint[0].languages)
-            setJsonTTT({
-                ...jsonTTT,"vendor" : vendorVal
-            })
+            setJsonTTT(json)
         }else if (e.target.dataset.type === "TTS"){
+            json['text'] = ''
+            json['lang'] = ''
+            json['sourcelanguage'] = ''
+            json['voice'] = ''
+            json['voice_gender'] = ''
+            json['voice_name'] = ''
+            json['id_voice'] = ''
             setIdTTS(id)
             setLanguagesTTS(endpoint[0].languages)
-            setJsonTTS({
-                ...jsonTTS,"vendor" : vendorVal
-            })
+            setJsonTTS(json)
         }else if (e.target.dataset.type === "STT"){
+            json['file'] = ''
+            json['Source'] = ''
+            json['source'] = ''
+            json['audio_url'] = ''
+            json['sourceLanguage'] = ''
+            console.log(id)
             setIdSTT(id)
             setLanguagesSTT(endpoint[0].languages)
-            setJsonSTT({
-                ...jsonSTT,"vendor" : vendorVal
-            })
+            setJsonSTT(json)
         }
         
     }
@@ -1460,7 +1478,7 @@ const TestContainer = () => {
             })
             setVoices(list)
             setJsonTTS({
-                ...jsonTTS,"sourcelanguage" : e.target.value
+                ...jsonTTS,"sourcelanguage" : e.target.value,"lang" : e.target.value
             })
         }else if (e.target.dataset.type === "STT"){
             setJsonSTT({
@@ -1512,7 +1530,7 @@ const TestContainer = () => {
         var au = document.createElement('audio')
         au.controls = true
         au.src = url
-        zone.innerHTML='';
+        zone.innerHTML=''
         zone.appendChild(au)
         var reader = new FileReader()
         reader.readAsDataURL(file)
@@ -1522,7 +1540,8 @@ const TestContainer = () => {
                 ...jsonSTT,
                 "file"   : base64,
                 "Source" : base64,
-                "source" : base64
+                "source" : base64,
+                "audio_url" : base64
             })
         }
         reader.onerror = function (error) {
@@ -1581,7 +1600,7 @@ const TestContainer = () => {
             rec.record()
 		    console.log("Recording started")
         }).catch(function(err) {
-            console.log(err);
+            console.log(err)
       })
     }
 
@@ -1605,7 +1624,7 @@ const TestContainer = () => {
         var au = document.createElement('audio')
         au.controls = true
         au.src = url
-        zone.innerHTML='';
+        zone.innerHTML=''
         zone.appendChild(au)
         var reader = new FileReader()
         reader.readAsDataURL(blob)
@@ -1615,7 +1634,8 @@ const TestContainer = () => {
                 ...jsonSTT,
                 "file"   : base64,
                 "Source" : base64,
-                "source" : base64
+                "source" : base64,
+                "audio_url" : base64
             })
         }
         reader.onerror = function (error) {
@@ -1624,24 +1644,24 @@ const TestContainer = () => {
     }
 
     const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
-        const byteCharacters = atob(b64Data);
-        const byteArrays = [];
+        const byteCharacters = atob(b64Data)
+        const byteArrays = []
         
         for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-          const slice = byteCharacters.slice(offset, offset + sliceSize);
+          const slice = byteCharacters.slice(offset, offset + sliceSize)
           
-          const byteNumbers = new Array(slice.length);
+          const byteNumbers = new Array(slice.length)
           for (let i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
+            byteNumbers[i] = slice.charCodeAt(i)
           }
           
-          const byteArray = new Uint8Array(byteNumbers);
+          const byteArray = new Uint8Array(byteNumbers)
           
-          byteArrays.push(byteArray);
+          byteArrays.push(byteArray)
         }
         
-        const blob = new Blob(byteArrays, {type: contentType});
-        return blob;
+        const blob = new Blob(byteArrays, {type: contentType})
+        return blob
     }
 
     const handleSubmitTTT = async e => {
@@ -1718,7 +1738,7 @@ const TestContainer = () => {
             }
             let res  = await fetch(`${Config.url}/apis/${idSTT}/test`, config)
             let data = await res.json()
-            console.log(data);
+            console.log(data)
             
             setResultSTT(data)  
             setLoading(false)
@@ -1729,7 +1749,7 @@ const TestContainer = () => {
     }
     
     const pruebas = () => {
-        
+        alert.success("Look at the json on console")
         console.log("JSON TTT...........")
         console.log(jsonTTT)
         console.log("JSON TTS...........")
@@ -1741,8 +1761,12 @@ const TestContainer = () => {
     if(loading)
     return <Loading />
 
-    if(error)
-        return <FatalError />    
+    if(error){
+        console.log(error)
+        alert.error("Sorry, there was a connection error")
+        // return <FatalError />
+    }
+
 
     return (
         <Test

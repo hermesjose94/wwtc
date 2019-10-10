@@ -56,7 +56,7 @@ const FormTextToText = ({
                                     {languages.length > 0 ? (
                                         <select 
                                             className="form-control"
-                                            value={json.sourceLanguage}
+                                            value={json.sourceLanguage && ''}
                                             data-type="TTT"
                                             onChange={fromLanguage}
                                         >

@@ -108,6 +108,8 @@ const EditContainer = ({history,match}) => {
         "body": null,
         "description": null,
         "output": null,
+        "id_api_token":"",
+        "type_file":"",
     })
 
     useEffect(() =>{
@@ -151,6 +153,8 @@ const EditContainer = ({history,match}) => {
 
                 let res = await fetch(`${Config.url}/apis/${match.params.id}`,config)
                 let data = await res.json()
+                console.log(data.api);
+                
                 setForm(data.api)
                 setArrayHeader(JSON.parse(data.api.header_param))
                 setArrayBody(JSON.parse(data.api.body_param))    

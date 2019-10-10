@@ -119,6 +119,22 @@ const FormEndpoint = ({
                     </div>
                 </div>  
                 <div className="col-12">
+                    <div className="form-group">
+                        <select 
+                            className="form-control" 
+                            name="type_file" 
+                            value={form.type_file || ''}
+                            onChange={handleChange} 
+                            >
+                                <option value="">Select Type File</option>
+                                <option value="AUDIO/WAV">AUDIO/WAV</option>
+                                <option value="AUDIO/MP3">AUDIO/MP3</option>
+                                <option value="URL/WAV">URL/WAV</option>
+                                <option value="URL/MP3">URL/MP3</option>
+                        </select>
+                    </div>
+                </div>  
+                <div className="col-12">
                     <hr></hr>
                     {arrayHeader ? (
                         <h5 className="float-left">Header Parameters</h5>

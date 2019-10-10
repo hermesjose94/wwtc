@@ -116,7 +116,7 @@ const FormSpeechToText = ({
                                 readOnly 
                                 className="form-control" 
                                 rows="8"
-                                defaultValue={result && result.recognizedText}
+                                defaultValue={result && (result.recognizedText || result.text)}
                                 >
                                 </textarea>
                         </div>

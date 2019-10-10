@@ -14,7 +14,8 @@ const FormTextToSpeech = ({
     handleSubmit,
     pruebas
 }) => {
-
+        console.log(json);
+        
         var array = endpoints.filter(function (pilot) {
             return pilot.translation_type === "Text to Speech"
         })
@@ -51,7 +52,7 @@ const FormTextToSpeech = ({
                                 {languages.length > 0 ? (
                                     <select 
                                             className="form-control"
-                                            value={json.sourcelanguage}
+                                            value={json.lang}
                                             data-type="TTS"
                                             onChange={fromLanguage}
                                         >
@@ -67,7 +68,7 @@ const FormTextToSpeech = ({
                                         type="text"
                                         className="form-control"
                                         placeholder="Language"
-                                        value={json.sourcelanguage}
+                                        value={json.lang}
                                         data-type="TTS"
                                         onChange={fromLanguage}
                                     />

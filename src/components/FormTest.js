@@ -122,9 +122,9 @@ const FormTest = ({
                             </thead>
                             <tbody>
                                     <tr>
-                                        <td>{arrayResult.vendor}</td>
+                                        <td>{arrayResult.vendor || arrayResult.acoustic_model}</td>
                                         <td>Text</td>
-                                        <td>{arrayResult.targetText || arrayResult.recognizedText}</td>
+                                        <td>{arrayResult.targetText || arrayResult.recognizedText || arrayResult.text}</td>
                                     </tr>
                                 
                             </tbody>
